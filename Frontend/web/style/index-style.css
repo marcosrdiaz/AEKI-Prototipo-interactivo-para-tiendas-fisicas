@@ -1,0 +1,36 @@
+body {
+    font-family: sans-serif;
+    background: #f0f0f0;
+    margin: 0;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  h1 {
+    margin-bottom: 1rem;
+  }
+
+  .button-container {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+  }
+
+  .button {
+    padding: 3rem;
+    font-size: 1.5rem;
+    border: 2px solid transparent;
+    border-radius: 1rem;
+    background-color: #ffffff;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .button.active {
+    border-color: #007bff;
+    background-color: #e0f0ff;
+  }
+
