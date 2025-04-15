@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Móvil</title>
+  <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+  <h1>Cliente Móvil</h1>
+  <button onclick="enviarAlServidor()">Enviar gesto</button>
+
+  <script>
+    const socket = io();
+
+    function enviarAlServidor() {
+      const data = { origen: "movil", gesto: "deslizar-derecha" };
+      socket.emit("mobile-data", data);
+      console.log("Enviado:", data);
+    }
+
+    socket.on("data-from-server", (data) => {
+      console.log("Mensaje recibido (desde otro cliente):", data);
+    });
+  </script>
+</body>
+</html>

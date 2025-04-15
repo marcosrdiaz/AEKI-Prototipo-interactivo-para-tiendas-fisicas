@@ -6,9 +6,17 @@
   <link rel="stylesheet" href="../style/index-style.css">
   
   <title>Navegación por Gestos</title>
+  <script src="/socket.io/socket.io.js"></script>
  
 </head>
 <body>
+  <div class="switch-container">
+    <label class="switch">
+      <input type="checkbox" id="modeSwitch">
+      <span class="slider"></span>
+    </label>
+    <span id="modeLabel">GESTOS</span>
+  </div>
   <h1>Navega con Gestos</h1>
   <div class="button-container">
     <div class="button" id="btnMapa">Mapa</div>

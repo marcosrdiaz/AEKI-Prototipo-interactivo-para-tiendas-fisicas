@@ -1,0 +1,46 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #DFD9B9; /* Fondo azul */
+}
+
+.container {
+    text-align: center;
+}
+
+.title {
+    font-size: 4rem;
+    font-weight: bold;
+    color: #D67942; /* Color amarillo estilo IKEA */
+    text-transform: uppercase;
+    text-shadow: 2px 2px 0 #56270C; /* Sombra azul estilo IKEA */
+    margin: 0;
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    color: #56270C;
+    margin-top: 1rem;
+}
+
+#voiceButton {
+    background-color: #90BFEE; /* Color amarillo estilo IKEA */
+    color: #000000; /* Color azul estilo IKEA */
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Añadida transición para el escalado */
+}
+
+#voiceButton:hover {
+    background-color: #D67942; /* Color amarillo claro estilo IKEA */
+    transform: scale(1.1); /* Escalar el botón un 10% más grande */
+}
+
+

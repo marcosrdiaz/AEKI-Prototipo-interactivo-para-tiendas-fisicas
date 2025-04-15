@@ -1,3 +1,6 @@
+
+const socket = io();
+
 const botones = document.querySelectorAll('.button');
     let seleccionado = 0;
 
@@ -27,3 +30,42 @@ const botones = document.querySelectorAll('.button');
 
     // Inicial
     resaltarBoton(seleccionado);
+
+    const modeSwitch = document.getElementById('modeSwitch');
+    const modeLabel = document.getElementById('modeLabel');
+
+    function enviarEstado() {
+      const modo = modeLabel.textContent;
+      console.log("Enviand:", modo);
+      socket.emit("status", { modo });  // envía { modo: 'VOZ' } o { modo: 'GESTOS' }
+      console.log("Modo de entrada actualizado:", modo);
+    }
+
+    // Enviar el estado actual al servidor al cargar la página
+    window.addEventListener('load', () => {
+      enviarEstado();
+    });
+  
+    modeSwitch.addEventListener('change', () => {
+      if (modeSwitch.checked) {
+        modeLabel.textContent = 'VOZ';
+        enviarEstado();
+        console.log('Modo cambiado a VOZ')
+        // Implementar lógica para modo VOZ
+      } else {
+        modeLabel.textContent = 'GESTOS';
+        enviarEstado();
+        console.log('Modo cambiado a GESTOS');
+        // Implementar lógica para modo GESTOS
+      }
+    });
+
+    document.getElementById("btnMapa").addEventListener("click", () => {
+      window.location.href = "mapa.html";
+    });
+  
+
+    socket.on("status-server", (data) => {
+      console.log("Mensaje recibido (desde otro cliente):", data);
+    });
+    

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Ordenador</title>
+  <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+  <h1>Cliente Ordenador</h1>
+  <div id="mensajes"></div>
+
+  <script>
+    const socket = io();
+
+    socket.on("data-from-server", (data) => {
+      const div = document.getElementById("mensajes");
+      div.innerHTML += `<p><strong>${data.origen}:</strong> ${data.gesto}</p>`;
+    });
+  </script>
+</body>
+</html>
