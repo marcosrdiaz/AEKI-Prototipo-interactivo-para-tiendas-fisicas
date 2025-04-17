@@ -1,5 +1,11 @@
-
 const socket = io();
+
+// Identificar dispositivo como "web"
+socket.emit("identificar", "web");
+
+socket.on("tipo-confirmado", (tipo) => {
+    console.log("Tipo de dispositivo confirmado:", tipo);
+});
 
 const botones = document.querySelectorAll('.button');
     let seleccionado = 0;
@@ -35,16 +41,12 @@ const botones = document.querySelectorAll('.button');
     const modeLabel = document.getElementById('modeLabel');
 
     function enviarEstado() {
-      const modo = modeLabel.textContent;
-      console.log("Enviand:", modo);
-      socket.emit("status", { modo });  // envía { modo: 'VOZ' } o { modo: 'GESTOS' }
-      console.log("Modo de entrada actualizado:", modo);
+      const entrada = modeLabel.textContent;
+      console.log("Enviando:", entrada);
+      socket.emit("entrada",  entrada);  // envía { modo: 'VOZ' } o { modo: 'GESTOS' }
+      console.log("Modo de entrada actualizado:", entrada);
     }
 
-    // Enviar el estado actual al servidor al cargar la página
-    window.addEventListener('load', () => {
-      enviarEstado();
-    });
   
     modeSwitch.addEventListener('change', () => {
       if (modeSwitch.checked) {
@@ -63,9 +65,11 @@ const botones = document.querySelectorAll('.button');
     document.getElementById("btnMapa").addEventListener("click", () => {
       window.location.href = "mapa.html";
     });
-  
 
-    socket.on("status-server", (data) => {
-      console.log("Mensaje recibido (desde otro cliente):", data);
-    });
-    
+  socket.on ("cambio-pagina-server", (pagina) => {
+    console.log("cambio de pagina", pagina)
+    window.location.href = pagina;
+  });
+
+
+

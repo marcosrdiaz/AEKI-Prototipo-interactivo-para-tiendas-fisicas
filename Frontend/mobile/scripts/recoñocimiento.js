@@ -1,7 +1,5 @@
-
+const socket = io();
 const startRecognitionButton = document.querySelector("#start-recognition");
-
-
 // Verifica si el navegador soporta SpeechRecognition
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
@@ -21,13 +19,16 @@ if (!SpeechRecognition) {
         if (event.results && event.results[0] && event.results[0][0]) {
             const transcript = event.results[0][0].transcript.toLowerCase();
             if (transcript.includes('carrito') || transcript.includes('carro')) {
-                window.location.href = 'carrito-mobile.html'; 
+                window.location.href = 'carrito-mobile.html';
+                socket.emit("cambio-pagina", 'carrito.html'); // Enviar evento al servidor
             } 
             else if (transcript.includes('mapa')) {
-                window.location.href = 'mapa-mobile.html'; 
+                window.location.href = 'mapa-mobile.html';
+                socket.emit("cambio-pagina", 'mapa.html'); // Enviar evento al servidor 
             }
             else if (transcript.includes('producto') || transcript.includes('n-f-c')) {
-                window.location.href = 'nfc-mobile.html'; 
+                window.location.href = 'nfc-mobile.html';
+                socket.emit("cambio-pagina", 'nfc.html'); // Enviar evento al servidor
             }
         } else {
             weatherInfo.textContent = 'No se detectó ninguna voz. Por favor, intenta de nuevo.';
