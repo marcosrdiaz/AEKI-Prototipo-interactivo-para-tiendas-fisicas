@@ -5,7 +5,7 @@ const socketIo = require("socket.io");
 const app = express();
 const server = http.createServer(app);
 const io = socketIo(server);
-const PORT = 3000;
+const PORT = 4000;
 const bodyParser = require("body-parser");
 const fs = require("fs");
 const { parse } = require("path");
@@ -16,6 +16,7 @@ const productosPath = "./data/almacen.json";
 
 //lista de los productos
 let productos = [];
+let carritoCompartido = [];
 
 // Middleware para servir archivos estáticos
 app.use(express.static("../servidor"));
@@ -113,9 +114,13 @@ io.on("connection", (socket) => {
     tipoDispositivo = tipo; // Guardar el tipo de dispositivo
     console.log(`Dispositivo identificado: ${socket.id} como ${tipo}`);
     socket.emit("tipo-confirmado", tipo)
+    
     if (tipoDispositivo === "mobile") { // Verificar si el tipo es 'web'
       socket.emit("entrada-server", metodo_entrada); // Enviar estado inicial al cliente web
-    };; // Confirmar tipo al cliente
+      // Enviar el carrito actual al dispositivo conectado
+      // Enviar el carrito actual al dispositivo conectado
+    };
+    socket.emit("carrito-actualizado", carritoCompartido);
   });
 
   socket.on("entrada", (data) => {
@@ -133,6 +138,28 @@ io.on("connection", (socket) => {
     }
   });
 
+  // Escuchar cuando un dispositivo añade un producto al carrito
+  socket.on("carrito-agregar", (producto) => {
+    carritoCompartido.push(producto);
+    console.log("Producto añadido al carrito:", producto);
+
+    // Notificar a todos los dispositivos conectados
+    io.emit("carrito-actualizado", carritoCompartido);
+  });
+
+  // Escuchar cuando un dispositivo vacía el carrito
+  socket.on("carrito-vaciar", () => {
+    carritoCompartido = [];
+    console.log("Carrito vaciado");
+
+    // Notificar a todos los dispositivos conectados
+    io.emit("carrito-actualizado", carritoCompartido);
+  });
+
+  socket.on("disconnect", () => {
+    console.log("Cliente desconectado:", socket.id);
+  });
+
   socket.on("disconnect", () => {
     console.log("Cliente desconectado:", socket.id);
   });
@@ -141,5 +168,5 @@ io.on("connection", (socket) => {
 loadProductos();
 
 server.listen(PORT, () => {
-  console.log("Servidor escuchando en http://localhost:3000");
+  console.log("Servidor escuchando en http://localhost:" + PORT);
 });

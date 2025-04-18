@@ -17,6 +17,8 @@
     padding: 15px 0;
     margin-bottom: 20px;
     border-bottom: 1px solid #e1e1e1;
+    background: white;
+    position: relative;
   }
   h1 {
     font-size: 1.8rem;
@@ -36,10 +38,6 @@
     padding: 20px;
     box-shadow: 0 2px 10px rgba(0,0,0,0.05);
     margin-bottom: 20px;
-    min-height: 60vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
   }
   
   .empty-state {
@@ -50,4 +48,31 @@
     font-size: 3rem;
     margin-bottom: 15px;
     color: #bdc3c7;
+  }
+
+  .producto {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 15px;
+    background: #fff;
+  }
+
+  .producto h2 {
+    margin: 0 0 10px;
+  }
+
+  .clear-cart {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 15px;
+    background: #e74c3c;
+    color: white;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
   }

@@ -1,13 +1,17 @@
-const socket = io();
+
+
+document.addEventListener('DOMContentLoaded', () => {
+
+  const socket = io();
 
 // Identificar dispositivo como "web"
-socket.emit("identificar", "web");
+socket.emit("identificar", "mobile");
 
 socket.on("tipo-confirmado", (tipo) => {
     console.log("Tipo de dispositivo confirmado:", tipo);
 });
-
-// Cargar productos del carrito desde el servidor
+  
+  // Cargar productos del carrito desde el servidor
 socket.on("carrito-actualizado", (carrito) => {
   const container = document.getElementById("carrito-container");
   container.innerHTML = ""; // Limpiar el contenido inicial
@@ -32,6 +36,8 @@ socket.on("carrito-actualizado", (carrito) => {
   }
 });
 
-
-
-
+// Emitir evento para vaciar el carrito
+document.getElementById("vaciar-carrito").addEventListener("click", () => {
+  socket.emit("carrito-vaciar");
+});
+});

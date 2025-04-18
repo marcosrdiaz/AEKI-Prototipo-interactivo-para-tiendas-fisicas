@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <link rel="stylesheet" href="carrito-mobile-style.css">
+  <link rel="stylesheet" href="../style/carrito-mobile-style.css">
+  <script src="/socket.io/socket.io.js"></script>
   <title>Carrito</title>
 </head>
 <body>
@@ -12,11 +13,12 @@
     <h1>Tu Carrito</h1>
   </div>
   
-  <div class="content">
-    <div class="empty-state">
-      <div>🛒</div>
-      <p>Tu carrito está vacío</p>
-    </div>
+  <div id="carrito-container" class="content">
+    <p>Cargando productos del carrito...</p>
   </div>
+
+  <button id="vaciar-carrito" class="clear-cart">Vaciar Carrito</button>
+
+  <script src="../scripts/carrito-mobile.js"></script>
 </body>
 </html>

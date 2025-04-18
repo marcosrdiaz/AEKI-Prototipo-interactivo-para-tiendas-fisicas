@@ -1,5 +1,5 @@
 const socket = io();
-
+ 
 // Identificar dispositivo como "web"
 socket.emit("identificar", "web");
 
