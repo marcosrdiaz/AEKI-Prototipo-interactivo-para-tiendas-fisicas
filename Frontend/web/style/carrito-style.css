@@ -1,0 +1,18 @@
+body {
+    font-family: sans-serif;
+    margin: 20px;
+    background-color: #f5f5f5;
+  }
+  h1 {
+    color: #333;
+  }
+  .producto {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 15px;
+    background: #fff;
+  }
+  .producto h2 {
+    margin: 0 0 10px;
+  }

@@ -6,20 +6,101 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIo(server);
 const PORT = 3000;
+const bodyParser = require("body-parser");
+const fs = require("fs");
+const { parse } = require("path");
 
 let metodo_entrada = 'VOZ'; // GESTOS o VOZ
+// cargar datos de la base de datos
+const productosPath = "./data/almacen.json";
+
+//lista de los productos
+let productos = [];
 
 // Middleware para servir archivos estáticos
+app.use(express.static("../servidor"));
+app.use(bodyParser.json());
 app.use(express.static("../../frontend"));
 app.use(express.json());
 
-// Ruta RESTful de ejemplo
-app.post("/api/send-data", (req, res) => {
-  const data = req.body;
-  console.log("Datos recibidos por REST:", data);
-  io.emit("data-from-rest", data);
-  res.status(200).send({ status: "ok" });
+function loadProductos(res) {
+  try {
+    const data = fs.readFileSync(productosPath, "utf8");
+    productos = JSON.parse(data).almacen;
+  } catch (err) {
+    console.error("Error a cargar la lista de productos:", err);
+    if (res) {
+      return res.status(500).send({error:"Error al cargar la lista de productos"});
+    }
+  }
+}
+
+function saveProductos(res) {
+  try {
+    fs.writeFileSync(productosPath, JSON.stringify(productos, null, 2));
+  } catch (err) {
+    console.error("Error al guardar la lista de productos:", err);
+    if (res) {
+      return res.status(500).send({error:"Error al guardar la lista de productos"});
+    }
+  }
+}
+
+app.get("/productos", (req, res) => {
+  if (productos.length === 0) {
+     return res.status(404).send({error:"No hay productos cargados"});
+  }
+  res.status(200).send(productos);
 });
+
+app.get('/productos/:id', (req, res) => {
+  const producto = productos.find(t => t.id === req.params.id);
+  if (!producto) {
+      return res.status(404).send({ error: 'Producto no encontrado.' });
+  }
+  res.status(200).send(producto);
+});
+
+app.post('/productos', (req, res) => {
+  const newProducto = req.body;
+
+  // Verificar que todos los atributos necesarios están presentes
+  if (!newProducto.id || !newProducto.nombre 
+    || !newProducto.descripcion || !newProducto.color || !newProducto.precio
+    || !newProducto.unidades_en_stock || !newProducto.localizacion_en_almacen) {
+      return res.status(400).send({ error: 'Faltan atributos requeridos en el producto.' });
+  }
+
+  // Verificar que no existan atributos no permitidos
+  const allowedKeys = ['id', 'nombre', 'descripcion', 'color', 'precio', 'unidades_en_stock', 'localizacion_en_almacen'];
+  const invalidKeys = Object.keys(newProducto).filter(key => !allowedKeys.includes(key));
+  if (invalidKeys.length > 0) {
+      return res.status(400).send({ error: `Atributos no permitidos: ${invalidKeys.join(', ')}` });
+  }
+
+  // Verificar que el id no exista ya
+  const idExists = productos.some(producto => producto.id === newProducto.id);
+  if (idExists) {
+      return res.status(409).send({ error: 'El id del producto ya existe.' });
+  }
+
+  productos.push(newProducto);
+  saveProductos(res);
+  res.status(201).send(newProducto);
+});
+
+
+app.delete("/productos/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+  const index = productos.findIndex(producto => producto.id === id);
+  if (index < 0) {
+    return res.status(404).send({ error: 'Producto no encontrado' });
+  }
+  productos.splice(index, 1);
+  saveProductos(res);
+  res.status(204).send();
+});
+
 
 // WebSocket Socket.IO
 io.on("connection", (socket) => {
@@ -36,7 +117,6 @@ io.on("connection", (socket) => {
       socket.emit("entrada-server", metodo_entrada); // Enviar estado inicial al cliente web
     };; // Confirmar tipo al cliente
   });
-
 
   socket.on("entrada", (data) => {
     if (tipoDispositivo === "web") { // Verificar si el tipo es 'web'
@@ -57,6 +137,8 @@ io.on("connection", (socket) => {
     console.log("Cliente desconectado:", socket.id);
   });
 });
+
+loadProductos();
 
 server.listen(PORT, () => {
   console.log("Servidor escuchando en http://localhost:3000");

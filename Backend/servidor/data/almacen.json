@@ -44,6 +44,15 @@
         "precio": 650.00,
         "unidades_en_stock": 6,
         "localizacion_en_almacen": "Pasillo D, Estantería 1"
+      },
+      {
+        "id": "6c7d3e1f",
+        "nombre": "Mesa de comedor extensible",
+        "descripcion": "Mesa de madera de roble con capacidad para 6-8 personas",
+        "color": "marrón claro",
+        "precio": 450.00,
+        "unidades_en_stock": 8,
+        "localizacion_en_almacen": "Pasillo C, Estantería 1"
       }
     ]
   }

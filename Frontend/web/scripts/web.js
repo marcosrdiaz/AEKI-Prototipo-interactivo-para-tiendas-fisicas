@@ -66,6 +66,18 @@ const botones = document.querySelectorAll('.button');
       window.location.href = "mapa.html";
     });
 
+    document.getElementById("btnCarrito").addEventListener("click", () => {
+      window.location.href = "carrito.html";
+    });
+
+    document.getElementById("btnComprar").addEventListener("click", () => {
+      window.location.href = "carrito.html";
+    });
+
+    document.getElementById("btnCatalogo").addEventListener("click", () => {
+      window.location.href = "catalogo.html";
+    });
+
   socket.on ("cambio-pagina-server", (pagina) => {
     console.log("cambio de pagina", pagina)
     window.location.href = pagina;
