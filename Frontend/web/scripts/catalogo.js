@@ -45,7 +45,7 @@ botones.forEach(boton => {
         let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 
         // Añadir el producto al carrito
-        carrito.push(productId);
+        carrito.push(producto);
 
         // Guardar el carrito actualizado en el localStorage
         localStorage.setItem('carrito', JSON.stringify(carrito));
