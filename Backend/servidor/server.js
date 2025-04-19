@@ -107,8 +107,6 @@ app.delete("/productos/:id", (req, res) => {
 io.on("connection", (socket) => {
   console.log("Cliente conectado:", socket.id);
 
-  let tipoDispositivo = null; // Variable para almacenar el tipo de dispositivo
-
   // Solicitar tipo de dispositivo
   socket.on("identificar", (tipo) => {
     tipoDispositivo = tipo; // Guardar el tipo de dispositivo

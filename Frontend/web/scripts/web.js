@@ -7,6 +7,16 @@ socket.on("tipo-confirmado", (tipo) => {
     console.log("Tipo de dispositivo confirmado:", tipo);
 });
 
+socket.on("entrada-server", (data) => {
+  console.log("Estado web actualizado", data)
+  modeLabel.textContent = data;
+  if (data === 'VOZ') {modeSwitch.checked = true;}
+  else modeSwitch.checked = false;
+    
+});
+
+
+
 const botones = document.querySelectorAll('.button');
     let seleccionado = 0;
 

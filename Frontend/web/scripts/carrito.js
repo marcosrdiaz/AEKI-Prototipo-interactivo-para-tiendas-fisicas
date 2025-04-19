@@ -32,6 +32,12 @@ socket.on("carrito-actualizado", (carrito) => {
   }
 });
 
+socket.on ("cambio-pagina-server", (pagina) => {
+  console.log("cambio de pagina", pagina)
+  window.location.href = pagina;
+});
+
+
 
 
 

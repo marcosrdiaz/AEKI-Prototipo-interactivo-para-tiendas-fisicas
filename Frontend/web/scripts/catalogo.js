@@ -53,4 +53,8 @@ fetch("http://localhost:4000/productos")
     container.innerHTML = `<p>Error: ${error.message}</p>`;
   });
 
+  socket.on ("cambio-pagina-server", (pagina) => {
+    console.log("cambio de pagina", pagina)
+    window.location.href = pagina;
+  });
 
