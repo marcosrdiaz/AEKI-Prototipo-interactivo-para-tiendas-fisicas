@@ -68,6 +68,11 @@ function actualizarEstado(data){
                     window.location.href = 'nfc-mobile.html';
                     socket.emit("cambio-pagina", 'nfc.html'); // Enviar evento al servidor
                 }
+                else if (transcript.includes('catálogo')) {
+                    window.location.href = 'catalogo-mobile.html';
+                    socket.emit("cambio-pagina", 'catalogo.html'); // Enviar evento al servidor
+                }
+                
             } else {
                 weatherInfo.textContent = 'No se detectó ninguna voz. Por favor, intenta de nuevo.';
             }

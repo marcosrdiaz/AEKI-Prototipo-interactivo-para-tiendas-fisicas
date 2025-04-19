@@ -114,29 +114,23 @@ io.on("connection", (socket) => {
     tipoDispositivo = tipo; // Guardar el tipo de dispositivo
     console.log(`Dispositivo identificado: ${socket.id} como ${tipo}`);
     socket.emit("tipo-confirmado", tipo)
-    
-    if (tipoDispositivo === "mobile") { // Verificar si el tipo es 'web'
-      socket.emit("entrada-server", metodo_entrada); // Enviar estado inicial al cliente web
+    socket.emit("entrada-server", metodo_entrada); // Enviar estado inicial al cliente web
       // Enviar el carrito actual al dispositivo conectado
       // Enviar el carrito actual al dispositivo conectado
-    };
     socket.emit("carrito-actualizado", carritoCompartido);
   });
 
   socket.on("entrada", (data) => {
-    if (tipoDispositivo === "web") { // Verificar si el tipo es 'web'
-      metodo_entrada = data;
-      console.log("Datos recibidos:", metodo_entrada);
-      socket.broadcast.emit("entrada-server", metodo_entrada);
-    }
-  });
+    metodo_entrada = data;
+    console.log("Datos recibidos:", metodo_entrada);
+    socket.broadcast.emit("entrada-server", metodo_entrada);
+    });
 
   socket.on("cambio-pagina", (pagina) => {
-    if (tipoDispositivo === "mobile") { // Verificar si el tipo es 'mobile'
-      console.log("Cambio de página solicitado:", pagina);
-      socket.broadcast.emit("cambio-pagina-server", pagina);
+    console.log("Cambio de página solicitado:", pagina);
+    socket.broadcast.emit("cambio-pagina-server", pagina);
     }
-  });
+  );
 
   // Escuchar cuando un dispositivo añade un producto al carrito
   socket.on("carrito-agregar", (producto) => {

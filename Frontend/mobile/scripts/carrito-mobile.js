@@ -2,7 +2,8 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  const socket = io();
+const socket = io();
+const botonatras = document.getElementById("boton-atras");
 
 // Identificar dispositivo como "web"
 socket.emit("identificar", "mobile");
@@ -35,6 +36,12 @@ socket.on("carrito-actualizado", (carrito) => {
     });
   }
 });
+
+botonatras.addEventListener("click", () => {
+  window.location.href = "index.html"; // Redirigir a la página de inicio
+  socket.emit("cambio-pagina", 'index.html'); // Enviar evento al servidor
+});
+
 
 // Emitir evento para vaciar el carrito
 document.getElementById("vaciar-carrito").addEventListener("click", () => {
