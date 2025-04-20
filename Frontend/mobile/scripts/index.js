@@ -1,7 +1,10 @@
-
 document.addEventListener('DOMContentLoaded', () => {
 
 const socket = io();
+const modeLabel = document.getElementById('modeLabel');
+const voiceButton = document.getElementById('voiceButton');
+const infoVoice = document.getElementById('infoVoice');
+
 
 // Identificar dispositivo como "mobile"
 socket.emit("identificar", "mobile");
@@ -10,17 +13,13 @@ socket.on("tipo-confirmado", (tipo) => {
     console.log("Tipo de dispositivo confirmado:", tipo);
 });
 
-
-//===============================================================
-
-const modeLabel = document.getElementById('modeLabel');
-const voiceButton = document.getElementById('voiceButton');
-const infoVoice = document.getElementById('infoVoice');
-
 socket.on("entrada-server", (data) => {
     console.log("movil llega", data)
     actualizarEstado(data);
   });
+
+socket.on("cambio-pagina-server", (pagina) => {
+    window.location.href = pagina;});
 
 function actualizarEstado(data){
     modeLabel.textContent = data;
@@ -35,6 +34,8 @@ function actualizarEstado(data){
         infoVoice.style.display = 'none'; // Ocultar el texto de información
     }
 
+
+//==================== VOZ ===========================================
 
     const startRecognitionButton = document.querySelector("#start-recognition");
     // Verifica si el navegador soporta SpeechRecognition
@@ -81,4 +82,58 @@ function actualizarEstado(data){
             weatherInfo.textContent = `Error en el reconocimiento de voz: ${event.error}`;
         };}
 
-}});
+}
+
+//======================= GESTOS ================================================
+
+// Verificar si el dispositivo soporta DeviceMotionEvent
+if (typeof DeviceMotionEvent !== 'undefined') {
+    if (typeof DeviceMotionEvent.requestPermission === 'function') {
+        DeviceMotionEvent.requestPermission()
+            .then(permissionState => {
+                if ((permissionState === 'granted') && (modeLabel.textContent === 'GESTOS')) {
+                    activarDeteccionMovimiento();
+                    console.log('DANZA KUDUROOOOOOOOOOOOOOOOOOOOOOOOOO');
+                } else {
+                    console.log('Permiso para DeviceMotionEvent denegado.');
+                }
+            })
+            .catch(console.error);
+    } else {
+        activarDeteccionMovimiento();
+    }
+} else {
+    console.log('DeviceMotionEvent no está soportado.');
+}
+
+function activarDeteccionMovimiento() {
+    let puedeDetectar = true; // Controlar el tiempo de espera entre detecciones
+
+    window.addEventListener('devicemotion', (event) => {
+        if (!puedeDetectar) return;
+
+        const umbral = 15; // Umbral para detectar movimientos bruscos
+        const { x, y, z } = event.acceleration;
+
+        if (x > umbral) {
+            console.log('Movimiento brusco X POSITIVA');
+            socket.emit("gesto-navegacion", 'derecha');
+        } else if (x < -umbral) {
+            console.log('Movimiento brusco X NEGATIVA');
+            socket.emit("gesto-navegacion", 'izquierda');
+        } else if (z > umbral) {
+            console.log('Movimiento brusco Z POSITIVA');
+            socket.emit("gesto-navegacion", 'arriba');
+        } else {
+            return; // No se detectó movimiento brusco
+        }
+
+        // Desactivar detección temporalmente
+        puedeDetectar = false;
+        setTimeout(() => {
+            puedeDetectar = true; // Reactivar detección después de 1 segundo
+        }, 1000);
+    });
+}
+
+});

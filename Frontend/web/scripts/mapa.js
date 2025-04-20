@@ -1,11 +1,77 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-// Coordenadas ficticias para productos
-const productos = {
-  mesa: [5, 5],
-  estanteria: [7, 8],
-  silla: [4, 5],
-};
+const socket = io();
+
+// Identificar dispositivo como "web"
+socket.emit("identificar", "web");
+
+socket.on("tipo-confirmado", (tipo) => {
+    console.log("Tipo de dispositivo confirmado:", tipo);
+});
+
+socket.on("carrito-actualizado", (carrito) => {
+  const container = document.getElementById("carrito-container");
+
+  // Mantener el título y el párrafo inicial
+  const titulo = container.querySelector("h1");
+  const parrafo = container.querySelector("p");
+
+  // Limpiar solo los productos existentes
+  const productosDivs = container.querySelectorAll(".producto");
+  productosDivs.forEach((productoDiv) => productoDiv.remove());
+
+  if (carrito.length === 0) {
+    const mensajeVacio = container.querySelector(".mensaje-vacio");
+    if (!mensajeVacio) {
+      const mensaje = document.createElement("p");
+      mensaje.className = "mensaje-vacio";
+      mensaje.textContent = "El carrito está vacío.";
+      container.appendChild(mensaje);
+    }
+  } else {
+    // Eliminar mensaje de carrito vacío si existe
+    const mensajeVacio = container.querySelector(".mensaje-vacio");
+    if (mensajeVacio) mensajeVacio.remove();
+
+    carrito.forEach((producto) => {
+      const productoDiv = document.createElement("div");
+      productoDiv.className = "producto";
+      
+
+      // Crear un botón para cada producto
+      const boton = document.createElement("button");
+      boton.className = "mostrar-ruta";
+      boton.textContent = `${producto.nombre}`;
+      boton.setAttribute("data-nombre", producto.nombre);
+
+      // Agregar el botón al div del producto
+      productoDiv.appendChild(boton);
+      container.appendChild(productoDiv);
+    });
+
+    // Asignar eventos a los botones "Mostrar Ruta"
+    document.querySelectorAll(".mostrar-ruta").forEach((button) => {
+      button.addEventListener("click", (event) => {
+        const productoNombre = event.target.getAttribute("data-nombre").toLowerCase();
+        const destino = productos[productoNombre];
+
+        if (!destino) {
+          alert("Producto no encontrado en el mapa.");
+          return;
+        }
+
+        if (marcadorRuta) mapa.removeLayer(marcadorRuta);
+        if (lineaRuta) mapa.removeLayer(lineaRuta);
+
+        const ruta = calcularRuta(inicio, destino);
+
+        marcadorRuta = L.marker(destino).addTo(mapa).bindPopup(productoNombre).openPopup();
+        lineaRuta = L.polyline(ruta, { color: 'blue' }).addTo(mapa);
+      });
+    });
+  }
+});
+
 
 const inicio = [0.8, 7]; // punto de entrada
 
@@ -32,11 +98,10 @@ const grafo = {
 
   // Conexiones con los productos
   "5,5": [[4, 5]], // Conexión a la silla
-  "7,7": [[7, 8]], // Conexión a la estantería
-  "7,5": [[8, 5]], // Conexión al tablero
-  "4,5": [[5, 5]], // Conexión a la silla
-  "8,5": [[7, 5]], // Conexión al tablero
-  "7,8": [[7, 7]]  // Conexión a la estantería
+  "7,8": [[7, 7.2]], // Conexión al pasillo central
+  "7,7.2": [[8, 7.2], [6, 7.2], [7, 7], [7, 8]], // Asegurar conexión al producto en [7, 8]
+  "4,7.2": [[5, 7.2], [3, 7.2], [4, 9]], // Agregar conexión al producto en [4, 9]
+  "4,9": [[4, 7.2]], // Conexión al pasillo central  
 };
 // Crear el mapa
 const mapa = L.map('mapa', {
@@ -106,25 +171,5 @@ function calcularRuta(inicio, destino) {
 
   // Combinar ambas rutas (evitando duplicar el punto intermedio)
   return [...rutaInicioAIntermedio, ...rutaIntermedioADestino.slice(1)];
-}
-
-// Función para buscar un producto
-function buscarProducto() {
-  const nombre = document.getElementById("producto").value.toLowerCase();
-  const destino = productos[nombre];
-
-  if (!destino) {
-      alert("Producto no encontrado");
-      return;
-  }
-
-  if (marcadorRuta) mapa.removeLayer(marcadorRuta);
-  if (lineaRuta) mapa.removeLayer(lineaRuta);
-
-  const ruta = calcularRuta(inicio, destino);
-
-  marcadorRuta = L.marker(destino).addTo(mapa).bindPopup(nombre).openPopup();
-
-  lineaRuta = L.polyline(ruta, { color: 'blue' }).addTo(mapa);
 }
 });

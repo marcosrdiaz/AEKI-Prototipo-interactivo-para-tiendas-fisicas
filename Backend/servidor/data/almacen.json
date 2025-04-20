@@ -7,7 +7,7 @@
         "color": "negro",
         "precio": 199.99,
         "unidades_en_stock": 15,
-        "localizacion_en_almacen": "Pasillo A, Estantería 3"
+        "localizacion_en_almacen": [5, 5]
       },
       {
         "id": "4c7d9e0f",

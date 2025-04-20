@@ -1,0 +1,50 @@
+body {
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    margin: 0;
+}
+
+#carrito-container {
+    width: 30%;
+    height: 100%; /* Asegura que ocupe toda la altura */
+    padding: 20px;
+    overflow-y: auto;
+    background-color: #f9f9f9;
+    border-right: 1px solid #ddd;
+    box-sizing: border-box; /* Incluye el padding en el tamaño total */
+}
+
+#mapa {
+    width: 70%;
+    height: 100%; /* Asegura que ocupe toda la altura */
+}
+
+h1 {
+    margin-top: 0;
+}
+
+/* Estilo para los botones de los productos */
+button.mostrar-ruta {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    margin: 10px 0;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+button.mostrar-ruta:hover {
+    background-color: #0056b3;
+}
+
+button.mostrar-ruta:active {
+    background-color: #003f7f;
+}

@@ -148,13 +148,26 @@ io.on("connection", (socket) => {
     io.emit("carrito-actualizado", carritoCompartido);
   });
 
-  socket.on("disconnect", () => {
-    console.log("Cliente desconectado:", socket.id);
+  // Escuchar cuando un dispositivo elimina un producto específico del carrito
+  socket.on("eliminar-producto", (productoId) => {
+    carritoCompartido = carritoCompartido.filter(
+      (producto) => producto.id !== productoId
+    );
+    console.log(`Producto con ID ${productoId} eliminado del carrito`);
+
+    // Notificar a todos los dispositivos conectados
+    io.emit("carrito-actualizado", carritoCompartido);
+  });
+
+  socket.on("gesto-navegacion", (direccion) => {
+    console.log("Gesto de navegación recibido:", direccion);
+    socket.broadcast.emit("gesto-navegacion-server", direccion);
   });
 
   socket.on("disconnect", () => {
     console.log("Cliente desconectado:", socket.id);
   });
+
 });
 
 loadProductos();

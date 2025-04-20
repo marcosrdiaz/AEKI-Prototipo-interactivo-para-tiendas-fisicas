@@ -31,3 +31,17 @@ body {
     border: none;
     cursor: pointer;
   }
+
+  .eliminar-producto {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  .eliminar-producto:hover {
+    background-color: #c0392b;
+  }

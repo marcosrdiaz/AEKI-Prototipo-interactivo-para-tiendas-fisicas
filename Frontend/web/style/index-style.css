@@ -1,38 +1,64 @@
 body {
-    font-family: sans-serif;
-    background: #f0f0f0;
-    margin: 0;
-    padding: 2rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
+  font-family: sans-serif;
+  background: #f0f0f0;
+  margin: 0;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* Centrar verticalmente */
+  height: 100vh; /* Asegurar que ocupe toda la altura de la ventana */
+}
 
-  h1 {
-    margin-bottom: 1rem;
-  }
+h1 {
+  margin-bottom: 2rem;
+  font-size: 4rem; /* Tamaño grande como en móvil */
+  font-weight: bold;
+  color: #D67942; /* Color amarillo estilo IKEA */
+  text-transform: uppercase;
+  text-shadow: 2px 2px 0 #56270C; /* Sombra azul estilo IKEA */
+}
 
-  .button-container {
-    display: flex;
-    gap: 2rem;
-    justify-content: center;
-  }
+.button-container {
+  display: flex;
+  flex-direction: row; /* Cambiar a diseño horizontal */
+  gap: 1.5rem; /* Espaciado entre botones */
+  justify-content: center; /* Centrar horizontalmente */
+  align-items: center; /* Alinear verticalmente */
+  width: 100%; /* Asegurar que los botones ocupen el ancho disponible */
+  max-width: 800px; /* Limitar el ancho máximo */
+}
 
-  .button {
-    padding: 3rem;
-    font-size: 1.5rem;
-    border: 2px solid transparent;
-    border-radius: 1rem;
-    background-color: #ffffff;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
+.button {
+  padding: 1.5rem;
+  font-size: 1.5rem;
+  border: 2px solid transparent;
+  border-radius: 1rem;
+  background-color: #ffffff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  flex: 1; /* Hacer que los botones tengan el mismo tamaño */
+  max-width: 200px; /* Limitar el ancho máximo de cada botón */
+}
 
-  .button.active {
-    border-color: #007bff;
-    background-color: #e0f0ff;
-  }
+.button:hover {
+  transform: scale(1.05); /* Aumentar ligeramente el tamaño al pasar el cursor */
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); /* Aumentar la sombra */
+}
+
+.button:active {
+  transform: scale(0.95); /* Reducir ligeramente el tamaño al hacer clic */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Reducir la sombra */
+}
+
+.button.active {
+  border-color: #D67942;
+  background-color: #DFD9B9;
+  transform: scale(1.05); /* Aumentar ligeramente el tamaño al pasar el cursor */
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); /* Aumentar la sombra */
+}
 
 .switch-container {
   position: absolute;
@@ -81,10 +107,9 @@ body {
 }
 
 input:checked + .slider {
-  background-color: #007bff;
+  background-color: #D67942;
 }
 
 input:checked + .slider:before {
   transform: translateX(14px);
 }
-

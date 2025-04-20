@@ -28,9 +28,14 @@ const botones = document.querySelectorAll('.button');
       });
     }
 
+
     function activarBoton(index) {
-      const accion = botones[index].textContent;
-      alert(`Acción: ${accion}`);
+      const accion = botones[index].textContent.toLowerCase() + ".html";
+      window.location.href = accion;
+      const accionmobile = botones[index].textContent.toLowerCase() + "-mobile.html";
+      console.log("Navegando a:", accionmobile);
+      socket.emit("cambio-pagina", accionmobile); // Enviar evento al servidor
+
     }
 
     // Navegación simulada con flechas izquierda/derecha y Enter
@@ -44,6 +49,18 @@ const botones = document.querySelectorAll('.button');
       } else if (e.key === 'Enter') {
         activarBoton(seleccionado);
       }
+    });
+
+    socket.on("gesto-navegacion-server", (direccion) => {
+      console.log("Gesto de navegación recibido:", direccion);
+      if (direccion === "derecha") {
+        seleccionado = (seleccionado + 1) % botones.length;
+      } else if (direccion === "izquierda") {
+        seleccionado = (seleccionado - 1 + botones.length) % botones.length;
+      } else if (direccion === "arriba") {
+        activarBoton(seleccionado);
+      }
+      resaltarBoton(seleccionado);
     });
 
     // Inicial

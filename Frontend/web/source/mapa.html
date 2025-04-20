@@ -4,17 +4,18 @@
   <meta charset="UTF-8">
   <title>Localizador de Productos</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-  <style>
-    #mapa { height: 90vh; width: 100%; }
-  </style>
-</head>
+  <link rel="stylesheet" href="../style/index-style.css">
+  <link rel="stylesheet" href="../style/mapa-style.css">
+  </head>
 <body>
-  <h2>Buscar producto</h2>
-  <input type="text" id="producto" placeholder="Ej: leche" />
-  <button onclick="buscarProducto()">Localizar</button>
-
+  <div id="carrito-container">
+    <h1>Localizador de Productos</h1>
+    <p>Haz clic en un producto para ver su ubicación en el mapa.</p>
+    <!-- Los productos del carrito aparecerán aquí -->
+  </div>
   <div id="mapa"></div>
-
+  
+  <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script src="../scripts/mapa.js"></script>
 </body>
