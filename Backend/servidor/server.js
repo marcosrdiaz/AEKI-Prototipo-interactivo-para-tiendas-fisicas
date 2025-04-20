@@ -9,6 +9,7 @@ const PORT = 4000;
 const bodyParser = require("body-parser");
 const fs = require("fs");
 const { parse } = require("path");
+const path = require("path");
 
 let metodo_entrada = 'VOZ'; // GESTOS o VOZ
 // cargar datos de la base de datos
@@ -17,6 +18,18 @@ const productosPath = "./data/almacen.json";
 //lista de los productos
 let productos = [];
 let carritoCompartido = [];
+
+// Ruta para obtener los datos del almacén
+app.get('/api/almacen', (req, res) => {
+  const filePath = path.join(__dirname, 'data', 'almacen.json');
+  fs.readFile(filePath, 'utf8', (err, data) => {
+    if (err) {
+      console.error('Error al leer el archivo almacen.json:', err);
+      return res.status(500).json({ error: 'Error al leer los datos del almacén' });
+    }
+    res.json(JSON.parse(data));
+  });
+});
 
 // Middleware para servir archivos estáticos
 app.use(express.static("../servidor"));
