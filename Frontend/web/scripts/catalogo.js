@@ -1,3 +1,5 @@
+document.addEventListener("DOMContentLoaded", () => {
+
 const socket = io();
 
 // Identificar dispositivo como "web"
@@ -57,4 +59,4 @@ fetch("http://localhost:4000/productos")
     console.log("cambio de pagina", pagina)
     window.location.href = pagina;
   });
-
+});

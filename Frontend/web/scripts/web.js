@@ -1,3 +1,5 @@
+document.addEventListener("DOMContentLoaded", () => {
+
 const socket = io();
  
 // Identificar dispositivo como "web"
@@ -92,6 +94,8 @@ const botones = document.querySelectorAll('.button');
     console.log("cambio de pagina", pagina)
     window.location.href = pagina;
   });
+});
+
 
 
 

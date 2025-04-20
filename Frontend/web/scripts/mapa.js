@@ -1,9 +1,10 @@
+document.addEventListener("DOMContentLoaded", () => {
+
 // Coordenadas ficticias para productos
 const productos = {
   mesa: [5, 5],
   estanteria: [7, 8],
   silla: [4, 5],
-  tablero: [8, 5],
 };
 
 const inicio = [0.8, 7]; // punto de entrada
@@ -126,3 +127,4 @@ function buscarProducto() {
 
   lineaRuta = L.polyline(ruta, { color: 'blue' }).addTo(mapa);
 }
+});

@@ -1,3 +1,5 @@
+document.addEventListener("DOMContentLoaded", () => {
+
 const socket = io();
 
 // Identificar dispositivo como "web"
@@ -37,7 +39,12 @@ socket.on ("cambio-pagina-server", (pagina) => {
   window.location.href = pagina;
 });
 
-
+  // Emitir evento para vaciar el carrito
+  document.getElementById("vaciar-carrito").addEventListener("click", () => {
+    socket.emit("carrito-vaciar");
+  });
+  
+});
 
 
 

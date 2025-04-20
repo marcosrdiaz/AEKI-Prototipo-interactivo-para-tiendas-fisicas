@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', () => {
 
 const socket = io();
@@ -11,8 +12,6 @@ socket.on("tipo-confirmado", (tipo) => {
 
 
 //===============================================================
-
-
 
 const modeLabel = document.getElementById('modeLabel');
 const voiceButton = document.getElementById('voiceButton');
