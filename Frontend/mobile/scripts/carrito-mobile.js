@@ -25,7 +25,6 @@ document.addEventListener("DOMContentLoaded", () => {
           <p><strong>Descripción:</strong> ${producto.descripcion}</p>
           <p><strong>Color:</strong> ${producto.color}</p>
           <p><strong>Precio:</strong> $${producto.precio.toFixed(2)}</p>
-          <p><strong>Unidades en stock:</strong> ${producto.unidades_en_stock}</p>
           <button class="eliminar-producto" data-id="${producto.id}">Eliminar</button>
         `;
 

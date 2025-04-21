@@ -7,4 +7,7 @@ botonatras.addEventListener("click", () => {
     window.location.href = 'index.html'; // Redirigir a la página de inicio
     socket.emit('cambio-pagina', 'index.html'); // Enviar evento al servidor
   });
+
+  socket.on("cambio-pagina-server", (pagina) => {
+    window.location.href = pagina;});
 });

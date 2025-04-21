@@ -2,24 +2,20 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../style/nfc-mobile-style.css">
-  <title>Comprar Producto</title>
+  <script src="/socket.io/socket.io.js"></script>
+  <title>Escáner de Productos NFC</title>
 </head>
 <body>
   <div class="header">
-    <a href="index.html" class="back-button">←</a>
-    <h1>Producto</h1>
+    <a href="index.html" id="boton-atras" class="back-button">←</a>
+    <h1>Escáner de Productos NFC</h1>
   </div>
-  
   <div class="container">
-    <div class="product-image">📱</div>
-    <div class="product-details">
-      <h2 class="product-title">Producto Ejemplo</h2>
-      <div class="product-price">$99.99</div>
-      <p class="product-description">Descripción del producto que estás viendo en este momento.</p>
-    </div>
-    <button class="add-to-cart">Añadir al carrito</button>
+    <button id="scanButton">Escanear NFC</button>
+    <div id="messageContainer"></div> 
   </div>
+  <script src="../scripts/nfc-mobile.js"></script>
 </body>
 </html>

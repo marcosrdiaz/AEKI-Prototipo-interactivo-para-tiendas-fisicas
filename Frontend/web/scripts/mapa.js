@@ -3,6 +3,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Identificar dispositivo como "web"
   socket.emit("identificar", "web");
+  const botonatras = document.getElementById("boton-atras");
+
+
+  botonatras.addEventListener("click", () => {
+    window.location.href = 'index.html'; // Redirigir a la página de inicio
+    socket.emit('cambio-pagina', 'index.html'); // Enviar evento al servidor
+  });
+
+  socket.on("cambio-pagina-server", (pagina) => {
+    window.location.href = pagina;});
 
   let productos = {}; // Objeto para almacenar los productos y sus coordenadas
 

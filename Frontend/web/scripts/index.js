@@ -32,7 +32,7 @@ const botones = document.querySelectorAll('.button');
     function activarBoton(index) {
       const accion = botones[index].textContent.toLowerCase() + ".html";
       window.location.href = accion;
-      const accionmobile = botones[index].textContent.toLowerCase() + "-mobile.html";
+      let accionmobile = botones[index].textContent.toLowerCase() + "-mobile.html";
       console.log("Navegando a:", accionmobile);
       socket.emit("cambio-pagina", accionmobile); // Enviar evento al servidor
 
@@ -93,18 +93,23 @@ const botones = document.querySelectorAll('.button');
 
     document.getElementById("btnMapa").addEventListener("click", () => {
       window.location.href = "mapa.html";
+      socket.emit("cambio-pagina", "mapa-mobile.html"); // Enviar evento al servidor
     });
 
     document.getElementById("btnCarrito").addEventListener("click", () => {
       window.location.href = "carrito.html";
+      socket.emit("cambio-pagina", "carrito-mobile.html"); // Enviar evento al servidor
+      
     });
 
-    document.getElementById("btnComprar").addEventListener("click", () => {
-      window.location.href = "carrito.html";
+    document.getElementById("btnNFC").addEventListener("click", () => {
+      window.location.href = "nfc.html";
+      socket.emit("cambio-pagina", "nfc-mobile.html"); // Enviar evento al servidor
     });
 
     document.getElementById("btnCatalogo").addEventListener("click", () => {
       window.location.href = "catalogo.html";
+      socket.emit("cambio-pagina", "catalogo-mobile.html"); // Enviar evento al servidor
     });
 
   socket.on ("cambio-pagina-server", (pagina) => {

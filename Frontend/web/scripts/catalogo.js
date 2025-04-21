@@ -1,12 +1,18 @@
 document.addEventListener("DOMContentLoaded", () => {
 
 const socket = io();
+const botonatras = document.getElementById("boton-atras");
 
 // Identificar dispositivo como "web"
 socket.emit("identificar", "web");
 
 socket.on("tipo-confirmado", (tipo) => {
     console.log("Tipo de dispositivo confirmado:", tipo);
+});
+
+botonatras.addEventListener("click", () => {
+  window.location.href = 'index.html'; // Redirigir a la página de inicio
+  socket.emit('cambio-pagina', 'index.html'); // Enviar evento al servidor
 });
 
 // Realizar la petición GET para obtener los productos
@@ -37,7 +43,6 @@ fetch("http://localhost:4000/productos")
         <p><strong>Descripción:</strong> ${producto.descripcion}</p>
         <p><strong>Color:</strong> ${producto.color}</p>
         <p><strong>Precio:</strong> $${producto.precio.toFixed(2)}</p>
-        <p><strong>Unidades en stock:</strong> ${producto.unidades_en_stock}</p>
         <button class="add-to-cart" data-id="${producto.id}">Añadir al carrito</button>
       `;
 

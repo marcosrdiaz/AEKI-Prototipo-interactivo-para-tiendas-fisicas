@@ -6,6 +6,7 @@ body {
     align-items: center;
     height: 100vh;
     background-color: #DFD9B9; /* Fondo azul */
+    flex-direction: column; 
 }
 
 .container {
@@ -28,14 +29,29 @@ body {
 }
 
 #voiceButton {
-    background-color: #90BFEE; /* Color amarillo estilo IKEA */
-    color: #000000; /* Color azul estilo IKEA */
+    display: inline-flex; /* Usar flexbox para alinear contenido */
+    flex-direction: column; /* Apilar la imagen y el texto verticalmente */
+    align-items: center; /* Centrar horizontalmente */
+    justify-content: center; /* Centrar verticalmente */
+    gap: 0.3rem; /* Espacio entre la imagen y el texto */
+    background-color: #90BFEE;
+    color: #000000;
     border: none;
     padding: 0.5rem 1rem;
     border-radius: 0.5rem;
     font-size: 1rem;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease; /* Añadida transición para el escalado */
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-sizing: border-box;
+    text-align: center;
+    position: relative;
+}
+
+.button-icon {
+    width: 2rem; /* Ajusta el tamaño de la imagen */
+    height: 2rem; /* Asegura que la imagen sea cuadrada */
+    flex-shrink: 0; /* Evita que la imagen se reduzca */
+    vertical-align: middle; /* Asegura que la imagen esté alineada con el texto */
 }
 
 #voiceButton:hover {
@@ -43,4 +59,9 @@ body {
     transform: scale(1.1); /* Escalar el botón un 10% más grande */
 }
 
-
+#infoVoice {
+    font-size: 1rem;
+    color: #56270C;
+    text-align: center;
+    margin-top: 1rem; /* Espacio entre el botón y el texto */
+}

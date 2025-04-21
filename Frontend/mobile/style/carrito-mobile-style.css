@@ -25,6 +25,8 @@
     position: relative;
     margin-bottom: 20px;
     border-bottom: 1px solid #e1e1e1;
+    border-radius: 0.5rem; /* Bordes redondeados */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5); /* Sombra suave */
   }
   h1 {
     font-size: 1.8rem;

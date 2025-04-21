@@ -6,7 +6,6 @@
         "descripcion": "Silla ajustable con soporte lumbar y reposabrazos",
         "color": "negro",
         "precio": 199.99,
-        "unidades_en_stock": 15,
         "localizacion_en_almacen": [5,5]
       },
       {
@@ -15,7 +14,6 @@
         "descripcion": "Mesa de madera de roble con capacidad para 6-8 personas",
         "color": "marrón claro",
         "precio": 450.00,
-        "unidades_en_stock": 8,
         "localizacion_en_almacen": [7,8]
       },
       {
@@ -24,7 +22,6 @@
         "descripcion": "Sofá modular de 3 piezas con cojines extraíbles",
         "color": "azul oscuro",
         "precio": 899.50,
-        "unidades_en_stock": 5,
         "localizacion_en_almacen": [4,9]
       },
       {
@@ -33,7 +30,6 @@
         "descripcion": "Estantería de 5 niveles con diseño moderno",
         "color": "blanco",
         "precio": 120.75,
-        "unidades_en_stock": 12,
         "localizacion_en_almacen": [9,6]
       },
       {
@@ -42,7 +38,6 @@
         "descripcion": "Estructura de cama con cabecero acolchado y almacenamiento inferior",
         "color": "gris",
         "precio": 650.00,
-        "unidades_en_stock": 6,
         "localizacion_en_almacen": [3.4,6.5]
       }
     ]

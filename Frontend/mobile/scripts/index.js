@@ -33,7 +33,12 @@ function actualizarEstado(data){
         voiceButton.style.display = 'none'; // Ocultar el botón
         infoVoice.style.display = 'none'; // Ocultar el texto de información
     }
-
+    // Asegurar que el contenedor mantenga su alineación
+    const container = document.querySelector('.container');
+    container.style.display = 'flex';
+    container.style.flexDirection = 'column';
+    container.style.justifyContent = 'center';
+    container.style.alignItems = 'center';
 
 //==================== VOZ ===========================================
 
@@ -48,9 +53,22 @@ function actualizarEstado(data){
         recognition.lang = 'es-ES';
     
         voiceButton.addEventListener('click', () => {
+            // Cambiar el texto y el color del botón
+            const buttonText = voiceButton.querySelector('span');
+            buttonText.textContent = 'Escuchando...';
+            voiceButton.style.backgroundColor = '#D67942'; // Cambiar a un color diferente mientras escucha
+        
+            // Mostrar el mensaje de información más abajo
             infoVoice.textContent = 'Reconocimiento de voz activado. Di "Mapa", "Carrito" o "Comprar Producto".';
+            infoVoice.style.marginTop = '1rem'; // Añadir espacio entre el botón y el texto
             console.log('Escuchando...');
             recognition.start();
+        
+            // Restaurar el texto, el color y la imagen del botón cuando termine de escuchar
+            recognition.onend = () => {
+                buttonText.textContent = 'Iniciar Reconocimiento de Voz';
+                voiceButton.style.backgroundColor = '#90BFEE'; // Restaurar el color original
+            };
         });
     
         recognition.onresult = (event) => {

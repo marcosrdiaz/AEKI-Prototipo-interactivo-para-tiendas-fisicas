@@ -3,9 +3,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Identificar dispositivo como "web"
   socket.emit("identificar", "web");
+  const botonatras = document.getElementById("boton-atras");
 
   socket.on("tipo-confirmado", (tipo) => {
     console.log("Tipo de dispositivo confirmado:", tipo);
+  });
+
+  botonatras.addEventListener("click", () => {
+    window.location.href = 'index.html'; // Redirigir a la página de inicio
+    socket.emit('cambio-pagina', 'index.html'); // Enviar evento al servidor
   });
 
   // Cargar productos del carrito desde el servidor
@@ -25,7 +31,6 @@ document.addEventListener("DOMContentLoaded", () => {
           <p><strong>Descripción:</strong> ${producto.descripcion}</p>
           <p><strong>Color:</strong> ${producto.color}</p>
           <p><strong>Precio:</strong> $${producto.precio.toFixed(2)}</p>
-          <p><strong>Unidades en stock:</strong> ${producto.unidades_en_stock}</p>
           <button class="eliminar-producto" data-id="${producto.id}">Eliminar</button>
         `;
 

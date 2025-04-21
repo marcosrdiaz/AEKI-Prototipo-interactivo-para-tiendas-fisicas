@@ -8,12 +8,17 @@
   <link rel="stylesheet" href="../style/mapa-style.css">
   </head>
 <body>
-  <div id="carrito-container">
-    <h1>Localizador de Productos</h1>
-    <p>A continuación se muestran los productos de tu cesta, pulsa sobre ellos para ver su ubicacion en el almacen.</p>
-    <!-- Los productos del carrito aparecerán aquí -->
+  <div class="header">
+      <a id="boton-atras" class="back-button">←</a>
+      <h1>Localizador de Productos</h1>
   </div>
-  <div id="mapa"></div>
+  <div class="main-content">
+      <div id="carrito-container">
+          <p>A continuación se muestran los productos de tu cesta, pulsa sobre ellos para ver su ubicación en el almacén.</p>
+          <!-- Los productos del carrito aparecerán aquí -->
+      </div>
+      <div id="mapa"></div>
+  </div>
   
   <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>

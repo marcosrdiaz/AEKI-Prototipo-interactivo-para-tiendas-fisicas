@@ -1,23 +1,44 @@
 body {
     display: flex;
-    flex-direction: row;
+    flex-direction: column; /* Asegura que el título esté arriba */
     height: 100vh;
     margin: 0;
 }
 
+.header {
+    background-color: #D67942;
+    color: #FFFFFF;
+    padding: 1rem;
+    width: 100%; /* Ocupa todo el ancho */
+    text-align: center;
+    position: relative;
+    margin-bottom: 0; /* Sin espacio debajo del header */
+    border-bottom: 1px solid #e1e1e1;
+    border-radius: 0.5rem; /* Bordes redondeados */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5); /* Sombra suave */
+}
+
+.main-content {
+    display: flex;
+    flex: 1; /* Ocupa el espacio restante debajo del título */
+    width: 100%; /* Asegura que ocupe todo el ancho */
+}
+
 #carrito-container {
-    width: 30%;
-    height: 100%; /* Asegura que ocupe toda la altura */
-    padding: 20px;
-    overflow-y: auto;
+    width: 30%; /* Ocupa el 30% del ancho */
+    padding: 1rem;
     background-color: #f9f9f9;
-    border-right: 1px solid #ddd;
-    box-sizing: border-box; /* Incluye el padding en el tamaño total */
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra suave */
+    overflow-y: auto; /* Habilita el scroll si el contenido es muy grande */
 }
 
 #mapa {
-    width: 70%;
-    height: 100%; /* Asegura que ocupe toda la altura */
+    width: 70%; /* Ocupa el 70% del ancho */
+    flex-grow: 1; /* Asegura que el mapa ocupe el espacio restante */
+    background-color: #eaeaea; /* Fondo gris claro para el mapa */
+    border-radius: 0.5rem;
+    margin-left: 1rem; /* Espacio entre el carrito y el mapa */
 }
 
 h1 {
