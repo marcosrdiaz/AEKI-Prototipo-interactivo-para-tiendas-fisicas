@@ -13,11 +13,17 @@
   </div>
   
   <div class="container">
-    <div class="map-placeholder">
-      <div>🗺️</div>
-      <p>Mapa interactivo</p>
+    <!-- Catálogo de productos -->
+    <div id="catalogo-container">
+      <!-- Las imágenes de los productos se cargarán dinámicamente aquí -->
     </div>
-    <div class="user-location">📍</div>
+    
+    <!-- Mapa interactivo -->
+    <div id="mapa"></div>
   </div>
+
+  <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="../scripts/mapa-mobile.js"></script>
 </body>
 </html>

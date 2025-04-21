@@ -18,7 +18,6 @@ socket.on("entrada-server", (data) => {
 });
 
 
-
 const botones = document.querySelectorAll('.button');
     let seleccionado = 0;
 

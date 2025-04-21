@@ -19,20 +19,11 @@ const productosPath = "./data/almacen.json";
 let productos = [];
 let carritoCompartido = [];
 
-// Ruta para obtener los datos del almacén
-app.get('/api/almacen', (req, res) => {
-  const filePath = path.join(__dirname, 'data', 'almacen.json');
-  fs.readFile(filePath, 'utf8', (err, data) => {
-    if (err) {
-      console.error('Error al leer el archivo almacen.json:', err);
-      return res.status(500).json({ error: 'Error al leer los datos del almacén' });
-    }
-    res.json(JSON.parse(data));
-  });
-});
+
 
 // Middleware para servir archivos estáticos
 app.use(express.static("../servidor"));
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 app.use(express.static("../../frontend"));
 app.use(express.json());
@@ -59,6 +50,18 @@ function saveProductos(res) {
     }
   }
 }
+
+// Ruta para obtener los datos del almacén
+app.get('/api/almacen', (req, res) => {
+  const filePath = path.join(__dirname, 'data', 'almacen.json');
+  fs.readFile(filePath, 'utf8', (err, data) => {
+    if (err) {
+      console.error('Error al leer el archivo almacen.json:', err);
+      return res.status(500).json({ error: 'Error al leer los datos del almacén' });
+    }
+    res.json(JSON.parse(data));
+  });
+});
 
 app.get("/productos", (req, res) => {
   if (productos.length === 0) {
@@ -179,6 +182,11 @@ io.on("connection", (socket) => {
 
   socket.on("disconnect", () => {
     console.log("Cliente desconectado:", socket.id);
+  });
+
+    // En el servidor
+  socket.on("mostrar-ruta", ({ nombre, destino }) => {
+    socket.broadcast.emit("mostrar-ruta", { nombre, destino });
   });
 
 });

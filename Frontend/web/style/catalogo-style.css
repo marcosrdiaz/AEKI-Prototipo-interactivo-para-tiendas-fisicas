@@ -1,33 +1,59 @@
-
 body {
     font-family: Arial, sans-serif;
     margin: 20px;
 }
+
 .producto {
+    display: flex; /* Usar flexbox para organizar los elementos en línea */
+    align-items: flex-start; /* Alinear los elementos al inicio verticalmente */
     border: 1px solid #ccc;
     border-radius: 5px;
     padding: 15px;
     margin-bottom: 15px;
+    gap: 15px; /* Espacio entre la imagen y el contenido */
 }
+
+.producto-imagen {
+    width: 150px; /* Ajustar el tamaño de la imagen */
+    height: auto;
+    border-radius: 5px;
+}
+
+.producto-contenido {
+    flex: 1; /* Permitir que el contenido ocupe el resto del espacio */
+    display: flex;
+    flex-direction: column; /* Alinear los elementos verticalmente */
+    justify-content: space-between; /* Espaciar los elementos */
+}
+
 .producto h2 {
     margin: 0 0 10px;
+    font-size: 18px;
 }
+
 .producto p {
     margin: 5px 0;
+    font-size: 14px;
 }
 
 .add-to-cart {
-    display: block;
-    margin: 0 auto;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
+    align-self: flex-start; /* Alinear el botón al inicio */
+    padding: 5px 10px;
+    background-color: #e74c3c;
+    color: #DFD9B9;
     border: none;
-    border-radius: 5px;
-    font-size: 16px;
+    border-radius: 3px;
+    font-size: 15px;
     cursor: pointer;
 }
 
 .add-to-cart:hover {
-    background-color: #0056b3;
+  background-color: #DFD9B9;
+  color: #e74c3c;  
 }
+
+.producto.resaltado {
+    border: 2px solid #e74c3c; /* Borde azul para el producto resaltado */
+    background-color: #f0f8ff; /* Fondo claro para resaltar */
+}
+

@@ -6,13 +6,13 @@ body {
 }
 
 .header {
-    background-color: #D67942;
+    background-color: #DFD9B9;
     color: #FFFFFF;
     padding: 1rem;
     width: 100%; /* Ocupa todo el ancho */
     text-align: center;
     position: relative;
-    margin-bottom: 0; /* Sin espacio debajo del header */
+    margin-bottom: 10px; /* Añade un pequeño espacio debajo del título */
     border-bottom: 1px solid #e1e1e1;
     border-radius: 0.5rem; /* Bordes redondeados */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5); /* Sombra suave */
@@ -22,6 +22,7 @@ body {
     display: flex;
     flex: 1; /* Ocupa el espacio restante debajo del título */
     width: 100%; /* Asegura que ocupe todo el ancho */
+    margin-top: 10px; /* Opcional: Añade un espacio superior si no usas margin-bottom en .header */
 }
 
 #carrito-container {

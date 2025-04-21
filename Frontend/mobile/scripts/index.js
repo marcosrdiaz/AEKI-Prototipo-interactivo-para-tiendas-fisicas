@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', () => {
 
 const socket = io();
@@ -133,7 +134,11 @@ function activarDeteccionMovimiento() {
         const umbral = 15; // Umbral para detectar movimientos bruscos
         const { x, y, z } = event.acceleration;
 
-        if (x > umbral) {
+        // Detectar si es un gesto de agitar
+        if (Math.abs(x) > umbral && Math.abs(y) > umbral && Math.abs(z) > umbral) {
+            console.log('Gesto de agitar detectado');
+            socket.emit("gesto-navegacion", 'agitar');
+        } else if (x > umbral) {
             console.log('Movimiento brusco X POSITIVA');
             socket.emit("gesto-navegacion", 'derecha');
         } else if (x < -umbral) {
@@ -142,7 +147,7 @@ function activarDeteccionMovimiento() {
         } else if (z > umbral) {
             console.log('Movimiento brusco Z POSITIVA');
             socket.emit("gesto-navegacion", 'arriba');
-        } else {
+        }else {
             return; // No se detectó movimiento brusco
         }
 

@@ -27,11 +27,14 @@ document.addEventListener("DOMContentLoaded", () => {
         productoDiv.className = "producto";
 
         productoDiv.innerHTML = `
-          <h2>${producto.nombre}</h2>
-          <p><strong>Descripción:</strong> ${producto.descripcion}</p>
-          <p><strong>Color:</strong> ${producto.color}</p>
-          <p><strong>Precio:</strong> $${producto.precio.toFixed(2)}</p>
-          <button class="eliminar-producto" data-id="${producto.id}">Eliminar</button>
+          <img src="${producto.imagen}" alt="${producto.nombre}" class="producto-imagen" />
+          <div class="producto-contenido">
+            <h2>${producto.nombre}</h2>
+            <p><strong>Descripción:</strong> ${producto.descripcion}</p>
+            <p><strong>Color:</strong> ${producto.color}</p>
+            <p><strong>Precio:</strong> $${producto.precio.toFixed(2)}</p>
+            <button class="eliminar-producto" data-id="${producto.id}">Eliminar</button>
+          </div>
         `;
 
         container.appendChild(productoDiv);

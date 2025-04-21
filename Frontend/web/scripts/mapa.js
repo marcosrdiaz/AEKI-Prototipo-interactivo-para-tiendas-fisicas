@@ -100,7 +100,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const inicio = [0.8, 7]; // Punto de entrada
 
   // Grafo del almacén (nodos y conexiones)
-     const grafo = {
+    const grafo = {
     // Pasillo central
     "9,7.2": [[8, 7.2], [9, 6]], // Conexión al producto en [9,6]
     "8,7.2": [[9, 7.2], [7, 7.2]],

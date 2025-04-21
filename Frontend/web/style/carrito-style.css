@@ -7,14 +7,23 @@ body {
     color: #333;
   }
   .producto {
+    display: flex; /* Usar flexbox para organizar los elementos en línea */
+    align-items: flex-start; /* Alinear los elementos al inicio verticalmente */
     border: 1px solid #ccc;
     border-radius: 5px;
     padding: 15px;
     margin-bottom: 15px;
     background: #fff;
+    gap: 15px; /* Espacio entre la imagen y el contenido */
   }
   .producto h2 {
     margin: 0 0 10px;
+    font-size: 18px;
+  }
+
+  .producto p {
+    margin: 5px 0;
+    font-size: 14px;
   }
 
   .clear-cart {
@@ -33,15 +42,38 @@ body {
   }
 
   .eliminar-producto {
+    align-self: flex-start; /* Alinear el botón al inicio */
+    padding: 10px 20px;
     background-color: #e74c3c;
     color: white;
     border: none;
-    padding: 10px;
     border-radius: 5px;
+    font-size: 14px;
     cursor: pointer;
-    margin-top: 10px;
   }
   
   .eliminar-producto:hover {
     background-color: #c0392b;
+  }
+
+  .producto-imagen {
+    width: 150px; /* Ajustar el tamaño de la imagen */
+    height: auto;
+    border-radius: 5px;
+}
+  .producto-info {
+    margin-top: 10px;
+  }
+  .producto-info p {
+    margin: 5px 0;
+  }
+  .producto-info span {
+    font-weight: bold;
+  }
+
+  .producto-contenido {
+    flex: 1; /* Permitir que el contenido ocupe el resto del espacio */
+    display: flex;
+    flex-direction: column; /* Alinear los elementos verticalmente */
+    justify-content: space-between; /* Espaciar los elementos */
   }
