@@ -7,6 +7,9 @@ document.addEventListener("DOMContentLoaded", () => {
       socket.emit('cambio-pagina', 'index.html'); // Enviar evento al servidor
     });
 
+  socket.on("cambio-pagina-server", (pagina) => {
+    window.location.href = pagina;});
+
   // Identificar dispositivo como "mobile"
   socket.emit("identificar", "mobile");
 
