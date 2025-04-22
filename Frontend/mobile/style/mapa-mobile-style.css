@@ -15,7 +15,10 @@ body {
   padding: 20px;
   max-width: 100%;
   overflow-x: hidden;
+  height: 100vh;
+
 }
+
 .header {
   background-color: #D67942;
   color: #FFFFFF;
@@ -25,9 +28,10 @@ body {
   position: relative;
   margin: 40px 0 20px 0; 
   border-bottom: 1px solid #e1e1e1;
-  border-radius: 0.5rem; /* Bordes redondeados */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5); /* Sombra suave */
+  border-radius: 0.5rem; 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5); 
 }
+
 h1 {
   font-size: 1.8rem;
   color: #2c3e50;
@@ -42,14 +46,14 @@ h1 {
 
 #catalogo-container {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* Cambiar a 4 columnas para hacer los cuadrados más pequeños */
-  gap: 5px; /* Reducir el espacio entre los elementos */
-  padding: 5px; /* Reducir el padding general */
+  grid-template-columns: repeat(4, 1fr); 
+  gap: 5px; 
+  padding: 5px; 
 }
 
 #catalogo-container img {
-  width: auto; /* Tamaño fijo para las imágenes */
-  height: 10vh; /* Mantener las imágenes cuadradas */
+  width: auto; 
+  height: 10vh; 
   border-radius: 5px;
   cursor: pointer;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
@@ -62,71 +66,78 @@ h1 {
 
 #mapa {
   flex-grow: 1;
-  height: auto; /* Ajusta automáticamente la altura */
-  width: calc(100% - 20px); /* Reduce el ancho para dejar espacio a los lados */
+  height: auto;
+  width: calc(100% - 20px);
   background-color: #eaeaea;
-  background-size: cover; /* Asegura que la imagen cubra todo el contenedor */
-  background-position: center; /* Centra la imagen */
+  background-size: cover; 
+  background-position: center;
   position: relative;
-  overflow: hidden; /* Evita que el mapa se salga del contenedor */
-  border: 1px solid #ccc; /* Opcional: Añade un borde para delimitar el mapa */
-  margin: 0 auto 10px auto; /* Elimina el margen superior y centra horizontalmente */
-  border-radius: 5px; /* Bordes redondeados para un diseño más limpio */
+  overflow: hidden;
+  border: 1px solid #ccc; 
+  margin: 0 auto 10px auto; 
+  border-radius: 5px; 
 }
 
-/* Posicionar el enlace de Leaflet en la esquina inferior derecha del mapa */
 .leaflet-control-attribution {
-  position: absolute !important; /* Asegura que se posicione dentro del mapa */
-  bottom: 5px; /* Espacio desde la parte inferior */
-  right: 5px; /* Espacio desde la parte derecha */
-  font-size: 12px; /* Ajusta el tamaño del texto */
-  background: rgba(255, 255, 255, 0.8); /* Fondo semitransparente para mejor visibilidad */
-  padding: 2px 5px; /* Espaciado interno */
-  border-radius: 3px; /* Bordes redondeados */
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2); /* Sombra para destacar */
+  position: absolute !important; 
+  bottom: 5px; 
+  right: 5px;
+  font-size: 12px; 
+  background: rgba(255, 255, 255, 0.8); 
+  padding: 2px 5px; 
+  border-radius: 3px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 #producto-info-container {
   text-align: center;
-  width: 90%; /* Ocupa el 90% del ancho */
-  margin: 10px auto; /* Centra horizontalmente con auto */
+  width: 90%; 
+  margin: 10px auto; 
   padding: 10px;
   background-color: #DFD9B9;
   border: 1px solid #ccc;
   border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra ligera para destacar */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
 }
 
 #producto-info-container h2 {
   font-size: 18px;
   margin-bottom: 5px;
-  color: #333; /* Color del texto */
+  color: #333; 
 }
 
 #producto-info-container p {
   font-size: 14px;
-  color: #666; /* Color del texto secundario */
+  color: #666; 
   margin: 0;
 }
 
-
-
 .back-button {
-    position: absolute; /* Posiciona el botón de forma absoluta */
-    top: 10px; /* Espaciado desde la parte superior */
-    left: 10px; /* Espaciado desde la parte izquierda */
-    background-color: #D67942; /* Color de fondo */
-    color: #FFFFFF; /* Color del texto */
-    padding: 8px 12px; /* Espaciado interno */
-    border: none; /* Sin bordes */
-    border-radius: 5px; /* Bordes redondeados */
-    text-decoration: none; /* Elimina el subrayado */
-    font-size: 14px; /* Tamaño de la fuente */
-    cursor: pointer; /* Cambia el cursor al pasar por encima */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra para destacar */
-    transition: background-color 0.3s ease; /* Transición suave al pasar el cursor */
+    position: absolute; 
+    top: 10px; 
+    left: 10px; 
+    background-color: #D67942; 
+    color: #FFFFFF; 
+    padding: 8px 12px; 
+    border: none;
+    border-radius: 5px; 
+    text-decoration: none; 
+    font-size: 14px; 
+    cursor: pointer; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); 
+    transition: background-color 0.3s ease; 
 }
 
 .back-button:hover {
-    background-color: #b85d36; /* Color de fondo al pasar el cursor */
+    background-color: #b85d36; 
 }
+
+
+
+
+
+
+
+
+
+

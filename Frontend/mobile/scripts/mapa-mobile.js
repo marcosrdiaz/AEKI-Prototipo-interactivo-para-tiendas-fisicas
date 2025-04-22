@@ -89,7 +89,7 @@ document.addEventListener("DOMContentLoaded", () => {
     zoomControl: false, // Deshabilitar los botones de zoom
     doubleClickZoom: true, // Permitir zoom con doble clic
     touchZoom: true, // Permitir zoom táctil
-    dragging: false, // Deshabilitar el arrastre inicialmente
+    dragging: true, // Deshabilitar el arrastre inicialmente
   });
 
   // Configurar los límites y la imagen del almacén
@@ -104,15 +104,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // Ajustar los límites del mapa
   mapa.fitBounds(bounds);
 
-  // Habilitar o deshabilitar el arrastre según el nivel de zoom
-  mapa.on("zoomend", () => {
-    if (mapa.getZoom() > 5.2) {
-      mapa.dragging.enable(); // Permitir arrastrar si el zoom es mayor al inicial
-    } else {
-      mapa.dragging.disable(); // Deshabilitar arrastrar si el zoom es igual o menor al inicial
-      mapa.setView([2, 5], 5.2); // Recentrar el mapa si se intenta mover
-    }
-  });
 
   const inicio = [0.8, 7]; // Punto de entrada fijo
   let marcadorRuta, lineaRuta;
