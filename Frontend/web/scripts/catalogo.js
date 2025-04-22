@@ -2,8 +2,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 const socket = io();
 const botonatras = document.getElementById("boton-atras");
-let productos = []; // Array para almacenar los productos
+let productosLista = []; // Array para almacenar los productos
 let seleccionado = 0; // Variable para el índice del producto seleccionado
+let gestosNav = true; // Variable para saber si se debe ejecutar el gesto de navegación
 
 // Identificar dispositivo como "web"
 socket.emit("identificar", "web");
@@ -17,6 +18,40 @@ botonatras.addEventListener("click", () => {
   socket.emit('cambio-pagina', 'index.html'); // Enviar evento al servidor
 });
 
+ // Listener para el elemento de instrucciones
+ const instrucciones = document.getElementById("instrucciones");
+ instrucciones.addEventListener("click", () => {
+   mostrarGestosDisponibles();
+ });
+
+ // Función para mostrar modal de gestos disponibles
+ function mostrarGestosDisponibles() {
+   const overlay = document.createElement("div");
+   overlay.className = "modal-gestos-overlay";
+
+   const modal = document.createElement("div");
+   modal.className = "modal-gestos";
+   modal.innerHTML = `
+     <h3>Gestos disponibles</h3>
+     <ul>
+       <li><strong>Arriba:</strong> Seleccionar producto anterior</li>
+       <li><strong>Abajo:</strong> Seleccionar siguiente producto</li>
+       <li><strong>Derecha:</strong> Confirmar acción (añadir producto)</li>
+       <li><strong>Izquierda:</strong> Cancelar acción</li>
+       <li><strong>Agitar:</strong> Activar confirmación (en algunos contextos)</li>
+     </ul>
+     <button id="cerrar-gestos">Cerrar</button>
+   `;
+   overlay.appendChild(modal);
+   document.body.appendChild(overlay);
+
+   document.getElementById("cerrar-gestos").addEventListener("click", () => {
+     if (document.body.contains(overlay)) {
+       document.body.removeChild(overlay);
+     }
+   });
+ }
+
 // Realizar la petición GET para obtener los productos
 fetch("http://localhost:4000/productos")
   .then((response) => {
@@ -27,6 +62,7 @@ fetch("http://localhost:4000/productos")
   })
   .then((data) => {
     const productos = data;
+    productosLista = data; // Almacenar los productos en el array
     const container = document.getElementById("productos-container");
     container.innerHTML = ""; // Limpiar el contenido inicial
 
@@ -76,42 +112,67 @@ fetch("http://localhost:4000/productos")
     });
 }
 
-// Función para mostrar ventana emergente de confirmación
 function mostrarConfirmacion(producto) {
-    const confirmacion = document.createElement("div");
-    confirmacion.className = "confirmacion";
-    confirmacion.innerHTML = `
-        <p>¿Añadir "${producto.nombre}" al carrito?</p>
-        <p>Mueve el móvil a la derecha para SÍ o a la izquierda para NO.</p>
-    `;
-    document.body.appendChild(confirmacion);
+  // Crear overlay para la ventana modal
+  const overlay = document.createElement("div");
+  overlay.className = "modal-overlay";
 
-    // Escuchar gestos para confirmar o cancelar
-    socket.on("gesto-navegacion-server", (direccion) => {
-        if (direccion === "derecha") {
-            socket.emit("carrito-agregar", producto);
-            alert(`Producto "${producto.nombre}" añadido al carrito.`);
-            document.body.removeChild(confirmacion);
-        } else if (direccion === "izquierda") {
-            alert("Acción cancelada.");
-            document.body.removeChild(confirmacion);
-        }
-    });
+  // Crear la ventana modal
+  const modal = document.createElement("div");
+  modal.className = "modal";
+  modal.innerHTML = `
+    <p>¿Añadir "${producto.nombre}" al carrito?</p>
+    <p>Mueve el móvil a la derecha para CONFIRMAR o a la izquierda para CANCELAR.</p>
+  `;
+
+  overlay.appendChild(modal);
+  document.body.appendChild(overlay);
+
+  // Función para cerrar el modal y quitar el listener
+  function cerrarModal() {
+    if (document.body.contains(overlay)) {
+      document.body.removeChild(overlay);
+    }
+  }
+  // Función que maneja el gesto de confirmación/cancelación
+  function confirmarGesto(direccion) {
+    if (direccion === "derecha") {
+      cerrarModal();
+      gestosNav = true; // Volver a habilitar gestos de navegación
+      alert(`Producto "${producto.nombre}" añadido al carrito.`);
+      socket.emit("carrito-agregar", producto);
+    } else if (direccion === "izquierda") {
+      alert("Acción cancelada.");
+      cerrarModal();
+      gestosNav = true; // Volver a habilitar gestos de navegación
+    }
+  }
+
+  socket.once("gesto-navegacion-server", confirmarGesto);
 }
-
 // Escuchar gestos de navegación
 
 socket.on("gesto-navegacion-server", (direccion) => {
+  if (!gestosNav) return; // Si no se deben ejecutar los gestos, salir de la función
     if (direccion === "abajo") {
-        seleccionado = (seleccionado + 1) % productos.length;
+        console.log("Movimiento brusco Z NEGATIVA");
+        console.log("Seleccionado:", seleccionado);
+        console.log("Productos:", productosLista.length);
+        seleccionado = (seleccionado + 1) % productosLista.length;
+        console.log("Seleccionado:", seleccionado);
         resaltarProducto(seleccionado);
     } else if (direccion === "arriba") {
-        seleccionado = (seleccionado - 1 + productos.length) % productos.length;
+        console.log("Movimiento brusco Z POSITIVA");
+        seleccionado = (seleccionado - 1 + productosLista.length) % productosLista.length;
         resaltarProducto(seleccionado);
-    } else if (direccion === "agitar") {
-        mostrarConfirmacion(productos[seleccionado]);
+    } else if (direccion === "derecha") {
+        console.log("Gesto de dercha detectado");
+        gestosNav = false;
+        mostrarConfirmacion(productosLista[seleccionado]);
+        
     }
 });
+
 
   socket.on ("cambio-pagina-server", (pagina) => {
     console.log("cambio de pagina", pagina)

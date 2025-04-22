@@ -1,37 +1,56 @@
-body {
+* {
+    box-sizing: border-box;
     margin: 0;
+    padding: 0;
+  }
+  body {
     font-family: Arial, sans-serif;
+    background-color: #DFD9B9;
+    color: #56270C;
+    margin: 0;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    height: 100vh;
-    background-color: #DFD9B9;
-}
-
-.header {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    display: flex;
-    align-items: center;
+    line-height: 1.6;
+    padding: 20px;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+  .header {
     background-color: #D67942;
-    padding: 0.5rem;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-}
+    color: #FFFFFF;
+    padding: 1rem;
+    width: 100%;
+    text-align: center;
+    position: relative;
+    margin: 40px 0 20px 0; 
+    border-bottom: 1px solid #e1e1e1;
+    border-radius: 0.5rem; /* Bordes redondeados */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5); /* Sombra suave */
+  }
+  h1 {
+    font-size: 1.8rem;
+    color: #2c3e50;
+  }
 
 .back-button {
+    position: absolute; /* Mantiene el botón en la esquina superior izquierda */
+    top: 15px; /* Ajusta la posición del botón para que se vea bien con el nuevo padding */
+    left: 15px;
+    background-color: #D67942;
     color: #FFFFFF;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
     text-decoration: none;
-    font-size: 1.5rem;
-    margin-right: 1rem;
+    font-size: 14px;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease;
 }
 
-h1 {
-    font-size: 1.5rem;
-    color: #FFFFFF;
-    margin: 0;
+.back-button:hover {
+    background-color: #b85d36;
 }
 
 .content {

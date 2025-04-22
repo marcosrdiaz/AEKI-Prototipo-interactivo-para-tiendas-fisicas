@@ -1,11 +1,16 @@
 document.addEventListener("DOMContentLoaded", () => {
   const socket = io();
+  const botonatras = document.getElementById("boton-atras");
+  
+  botonatras.addEventListener("click", () => {
+      window.location.href = 'index.html'; // Redirigir a la página de inicio
+      socket.emit('cambio-pagina', 'index.html'); // Enviar evento al servidor
+    });
 
   // Identificar dispositivo como "mobile"
   socket.emit("identificar", "mobile");
 
   let productos = {}; // Objeto para almacenar los productos y sus coordenadas
-
   // Cargar datos del catálogo desde el servidor
   fetch("http://localhost:4000/api/almacen")
     .then((response) => {
@@ -15,68 +20,101 @@ document.addEventListener("DOMContentLoaded", () => {
       return response.json();
     })
     .then((data) => {
-      const catalogoContainer = document.getElementById("catalogo-container");
+      // Guardar las coordenadas de los productos en el objeto `productos`
       data.almacen.forEach((producto) => {
-        productos[producto.nombre.toLowerCase()] = producto.localizacion_en_almacen;
-
-        // Crear una imagen para cada producto
-        const img = document.createElement("img");
-        img.src = producto.imagen; // Asegúrate de que el servidor devuelva la URL de la imagen
-        img.alt = producto.nombre;
-        img.setAttribute("data-nombre", producto.nombre);
-
-        // Asignar evento para mostrar la ruta
-        img.addEventListener("click", () => {
-          const destino = productos[producto.nombre.toLowerCase()];
-          if (!destino) {
-            alert("Producto no encontrado en el mapa.");
-            return;
-          }
-
-          // Emitir evento al servidor para sincronizar con la web
-          socket.emit("mostrar-ruta", { nombre: producto.nombre, destino });
-
-          // Mostrar la ruta en el mapa móvil
-          mostrarRuta(producto.nombre, destino);
-        });
-
-        catalogoContainer.appendChild(img);
+        productos[producto.nombre.toLowerCase()] = {
+          localizacion: producto.localizacion_en_almacen,
+          imagen: producto.imagen,
+          descripcion: producto.descripcion, // Agregar descripción del producto
+        };
       });
     })
-    .catch((error) => console.error("Error al cargar los datos del catálogo:", error));
+    .catch((error) => console.error("Error al cargar los datos del almacén:", error));
 
+  // Escuchar el evento "carrito-actualizado" para mostrar solo los productos del carrito
+  socket.on("carrito-actualizado", (carrito) => {
+    const catalogoContainer = document.getElementById("catalogo-container");
+    const productoNombre = document.getElementById("producto-nombre");
+    const productoDescripcion = document.getElementById("producto-descripcion");
 
-// Crear el mapa
-const mapa = L.map("mapa", {
-  crs: L.CRS.Simple,
-  minZoom: 5.2,
-  maxZoom: 7,
-  zoomSnap: 0.5,
-  zoomControl: false, // Deshabilitar los botones de zoom
-  doubleClickZoom: true, // Permitir zoom con doble clic
-  touchZoom: true, // Permitir zoom táctil
-  dragging: false, // Deshabilitar el arrastre inicialmente
-});
+    // Limpiar el contenedor antes de agregar los productos del carrito
+    catalogoContainer.innerHTML = "";
 
-// Configurar los límites y la imagen del almacén
-const bounds = [[0, 0], [10, 10]];
-const image = L.imageOverlay("../images/almacen.jpg", bounds).addTo(mapa);
+    if (carrito.length === 0) {
+      const mensaje = document.createElement("p");
+      mensaje.textContent = "El carrito está vacío.";
+      catalogoContainer.appendChild(mensaje);
+    } else {
+      carrito.forEach((producto) => {
+        const productoNombreKey = producto.nombre.toLowerCase();
+        const productoData = productos[productoNombreKey];
 
-// Ajustar la vista inicial del mapa
-mapa.setView([0, 0], 5.2); // Nivel de zoom inicial
-mapa.fitBounds(bounds);
+        if (productoData) {
+          // Crear una imagen para cada producto en el carrito
+          const img = document.createElement("img");
+          img.src = productoData.imagen; // Ruta de la imagen del producto
+          img.alt = producto.nombre;
+          img.setAttribute("data-nombre", producto.nombre);
 
-// Habilitar o deshabilitar el arrastre según el nivel de zoom
-mapa.on("zoomend", () => {
-  if (mapa.getZoom() > 5.2) {
-    mapa.dragging.enable(); // Permitir arrastrar si el zoom es mayor al inicial
-  } else {
-    mapa.dragging.disable(); // Deshabilitar arrastrar si el zoom es igual o menor al inicial
-    mapa.setView([5, 5], 5.2); // Recentrar el mapa si se intenta mover
-  }
-});
+          // Asignar evento para mostrar la ruta y la información del producto
+          img.addEventListener("click", () => {
+            const destino = productoData.localizacion;
+            if (!destino) {
+              alert("Producto no encontrado en el mapa.");
+              return;
+            }
 
+            // Mostrar información del producto
+            productoNombre.textContent = producto.nombre;
+            productoDescripcion.textContent = productoData.descripcion || "Sin descripción disponible.";
 
+            // Emitir evento al servidor para sincronizar con la web
+            socket.emit("mostrar-ruta", { nombre: producto.nombre, destino });
+
+            // Mostrar la ruta en el mapa móvil
+            mostrarRuta(producto.nombre, destino);
+          });
+
+          catalogoContainer.appendChild(img);
+        }
+      });
+    }
+  });
+
+  // Crear el mapa
+  const mapa = L.map("mapa", {
+    crs: L.CRS.Simple,
+    minZoom: 5.2,
+    maxZoom: 7,
+    zoomControl: false, // Deshabilitar los botones de zoom
+    doubleClickZoom: true, // Permitir zoom con doble clic
+    touchZoom: true, // Permitir zoom táctil
+    dragging: false, // Deshabilitar el arrastre inicialmente
+  });
+
+  // Configurar los límites y la imagen del almacén
+  const bounds = [[0, 0], [10, 10]];
+  const image = L.imageOverlay("../images/almacen.jpg", bounds).addTo(mapa);
+
+  // Ajustar la vista inicial del mapa cuando esté listo
+  mapa.whenReady(() => {
+    mapa.setView([2, 5], 5.2); // Posicionar correctamente el mapa
+  });
+
+  // Ajustar los límites del mapa
+  mapa.fitBounds(bounds);
+
+  // Habilitar o deshabilitar el arrastre según el nivel de zoom
+  mapa.on("zoomend", () => {
+    if (mapa.getZoom() > 5.2) {
+      mapa.dragging.enable(); // Permitir arrastrar si el zoom es mayor al inicial
+    } else {
+      mapa.dragging.disable(); // Deshabilitar arrastrar si el zoom es igual o menor al inicial
+      mapa.setView([2, 5], 5.2); // Recentrar el mapa si se intenta mover
+    }
+  });
+
+  const inicio = [0.8, 7]; // Punto de entrada fijo
   let marcadorRuta, lineaRuta;
 
   // Función para mostrar la ruta en el mapa
@@ -84,18 +122,13 @@ mapa.on("zoomend", () => {
     if (marcadorRuta) mapa.removeLayer(marcadorRuta);
     if (lineaRuta) mapa.removeLayer(lineaRuta);
 
-    const ruta = calcularRuta([0.8, 7], destino); // Punto de entrada fijo
+    const ruta = calcularRuta(inicio, destino);
 
     marcadorRuta = L.marker(destino).addTo(mapa).bindPopup(nombre).openPopup();
     lineaRuta = L.polyline(ruta, { color: "blue" }).addTo(mapa);
   }
 
-  // Escuchar eventos del servidor para sincronizar rutas
-  socket.on("mostrar-ruta", ({ nombre, destino }) => {
-    mostrarRuta(nombre, destino);
-  });
-
-  // Función para calcular la ruta más corta (A*)
+  // Función para calcular la ruta más corta usando A*
   function calcularRuta(inicio, destino) {
     const inicioStr = inicio.join(",");
     const destinoStr = destino.join(",");
@@ -164,5 +197,10 @@ mapa.on("zoomend", () => {
     // Nuevos productos
     "9,6": [[9, 7.2], [8, 5]], // Conexión al pasillo central y a otro nodo cercano
     "3.4,6.5": [[3, 7.2], [2, 5]], // Conexión al pasillo central y a otro nodo cercano
-  };    
+  };
+
+  // Escuchar eventos del servidor para mostrar rutas
+  socket.on("mostrar-ruta", ({ nombre, destino }) => {
+    mostrarRuta(nombre, destino);
+  });
 });

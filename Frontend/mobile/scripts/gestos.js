@@ -1,6 +1,6 @@
-export function activarDeteccionMovimiento(socket, callback) {
+export function activarDeteccionMovimiento(socket) {
+    
     let puedeDetectar = true; // Controlar el tiempo de espera entre detecciones
-
     window.addEventListener('devicemotion', (event) => {
         if (!puedeDetectar) return;
 
@@ -11,20 +11,24 @@ export function activarDeteccionMovimiento(socket, callback) {
         if (Math.abs(x) > umbral && Math.abs(y) > umbral && Math.abs(z) > umbral) {
             console.log('Gesto de agitar detectado');
             socket.emit("gesto-navegacion", 'agitar');
-            callback && callback('agitar');
+            
         } else if (x > umbral) {
             console.log('Movimiento brusco X POSITIVA');
             socket.emit("gesto-navegacion", 'derecha');
-            callback && callback('derecha');
+            
         } else if (x < -umbral) {
             console.log('Movimiento brusco X NEGATIVA');
             socket.emit("gesto-navegacion", 'izquierda');
-            callback && callback('izquierda');
+            
         } else if (z > umbral) {
             console.log('Movimiento brusco Z POSITIVA');
             socket.emit("gesto-navegacion", 'arriba');
-            callback && callback('arriba');
-        } else {
+            
+        } else if (z < -umbral) {
+            console.log('Movimiento brusco Z NEGATIVA');
+            socket.emit("gesto-navegacion", 'abajo');
+        }
+        else {
             return; // No se detectó movimiento brusco
         }
 

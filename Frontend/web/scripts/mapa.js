@@ -1,10 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
   const socket = io();
-
+  const botonatras = document.getElementById("boton-atras");
   // Identificar dispositivo como "web"
   socket.emit("identificar", "web");
-  const botonatras = document.getElementById("boton-atras");
-
 
   botonatras.addEventListener("click", () => {
     window.location.href = 'index.html'; // Redirigir a la página de inicio

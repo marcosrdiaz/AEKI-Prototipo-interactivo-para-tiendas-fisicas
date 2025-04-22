@@ -1,3 +1,4 @@
+import { activarDeteccionMovimiento } from './gestos.js';
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -19,7 +20,7 @@ if (typeof DeviceMotionEvent !== 'undefined') {
       DeviceMotionEvent.requestPermission()
           .then(permissionState => {
               if ((permissionState === 'granted') && (modeLabel.textContent === 'GESTOS')) {
-                  activarDeteccionMovimiento();
+                  activarDeteccionMovimiento(socket);
                   console.log('DANZA KUDUROOOOOOOOOOOOOOOOOOOOOOOOOO');
               } else {
                   console.log('Permiso para DeviceMotionEvent denegado.');
@@ -27,43 +28,10 @@ if (typeof DeviceMotionEvent !== 'undefined') {
           })
           .catch(console.error);
   } else {
-      activarDeteccionMovimiento();
+      activarDeteccionMovimiento(socket);
   }
 } else {
   console.log('DeviceMotionEvent no está soportado.');
 }
 
-function activarDeteccionMovimiento() {
-  let puedeDetectar = true; // Controlar el tiempo de espera entre detecciones
-
-  window.addEventListener('devicemotion', (event) => {
-      if (!puedeDetectar) return;
-
-      const umbral = 15; // Umbral para detectar movimientos bruscos
-      const { x, y, z } = event.acceleration;
-
-      // Detectar si es un gesto de agitar
-      if (Math.abs(x) > umbral && Math.abs(y) > umbral && Math.abs(z) > umbral) {
-          console.log('Gesto de agitar detectado');
-          socket.emit("gesto-navegacion", 'agitar');
-      } else if (x > umbral) {
-          console.log('Movimiento brusco X POSITIVA');
-          socket.emit("gesto-navegacion", 'derecha');
-      } else if (x < -umbral) {
-          console.log('Movimiento brusco X NEGATIVA');
-          socket.emit("gesto-navegacion", 'izquierda');
-      } else if (z > umbral) {
-          console.log('Movimiento brusco Z POSITIVA');
-          socket.emit("gesto-navegacion", 'arriba');
-      }else {
-          return; // No se detectó movimiento brusco
-      }
-
-      // Desactivar detección temporalmente
-      puedeDetectar = false;
-      setTimeout(() => {
-          puedeDetectar = true; // Reactivar detección después de 1 segundo
-      }, 1000);
-  });
-}
 });

@@ -4,11 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <link rel="stylesheet" href="../style/mapa-mobile-style.css">
+  <script src="/socket.io/socket.io.js"></script>
   <title>Mapa</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
 </head>
 <body>
+  <a id="boton-atras" class="back-button">←</a>
   <div class="header">
-    <a href="index.html" class="back-button">←</a>
     <h1>Mapa</h1>
   </div>
   
@@ -20,9 +23,13 @@
     
     <!-- Mapa interactivo -->
     <div id="mapa"></div>
+
+    <div id="producto-info-container">
+      <h2 id="producto-nombre">Selecciona un producto</h2>
+      <p id="producto-descripcion">Aquí aparecerá la información del producto seleccionado.</p>
+    </div>
   </div>
 
-  <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script src="../scripts/mapa-mobile.js"></script>
 </body>

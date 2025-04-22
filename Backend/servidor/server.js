@@ -148,11 +148,20 @@ io.on("connection", (socket) => {
 
   // Escuchar cuando un dispositivo añade un producto al carrito
   socket.on("carrito-agregar", (producto) => {
+    // Buscar si el producto ya existe en el carritoCompartido por su id
+  const index = carritoCompartido.findIndex(p => p.id === producto.id);
+  if (index !== -1) {
+    // Si existe, incrementar la cantidad (si no existe, se asume 1)
+    carritoCompartido[index].cantidad = (carritoCompartido[index].cantidad || 1) + 1;
+  } else {
+    // Si no existe, establecer la cantidad en 1 y agregar el producto
+    producto.cantidad = 1;
     carritoCompartido.push(producto);
-    console.log("Producto añadido al carrito:", producto);
+  }
 
-    // Notificar a todos los dispositivos conectados
-    io.emit("carrito-actualizado", carritoCompartido);
+  console.log("Producto agregado al carrito:", producto);
+  // Notificar a todos los dispositivos conectados
+  io.emit("carrito-actualizado", carritoCompartido);
   });
 
   // Escuchar cuando un dispositivo vacía el carrito

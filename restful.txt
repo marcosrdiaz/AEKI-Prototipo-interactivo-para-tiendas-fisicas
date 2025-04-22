@@ -1,9 +1,3 @@
-get.catalogo (todos) -> catalogo 
-
-get.catalogo (id) -> nfc
-
-post.carrito (id busca en catalogo) -> nfc catalogo // CONTEMPLAMOS MODIFICAR UNIDADES EN CATALOGO
-
-delete.carrito (id busca en carrito) -> carrito
-
-put.carrito (id busca en carrito) -> carrito, modifica cantidad del articulo
+Falta comandos de voz en resto de ventanas
+Arreglar botones atras 
+Pulir algunos detalles, retroalimentacion, estilo etc

@@ -1,3 +1,5 @@
+import { activarDeteccionMovimiento } from './gestos.js'; // Importar la función de gestos
+
 document.addEventListener("DOMContentLoaded", () => {
   const socket = io();
   const botonatras = document.getElementById("boton-atras");
@@ -25,6 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <p><strong>Descripción:</strong> ${producto.descripcion}</p>
           <p><strong>Color:</strong> ${producto.color}</p>
           <p><strong>Precio:</strong> $${producto.precio.toFixed(2)}</p>
+          <p><strong>Cantidad:</strong> ${producto.cantidad}</p>
           <button class="eliminar-producto" data-id="${producto.id}">Eliminar</button>
         `;
 
@@ -56,6 +59,26 @@ document.addEventListener("DOMContentLoaded", () => {
     socket.emit("carrito-vaciar");
     
   });
+
+  // Verificar si el dispositivo soporta DeviceMotionEvent
+  if (typeof DeviceMotionEvent !== 'undefined') {
+    if (typeof DeviceMotionEvent.requestPermission === 'function') {
+        DeviceMotionEvent.requestPermission()
+            .then(permissionState => {
+                if ((permissionState === 'granted') && (modeLabel.textContent === 'GESTOS')) {
+                    activarDeteccionMovimiento(socket);
+                    console.log('DANZA KUDUROOOOOOOOOOOOOOOOOOOOOOOOOO');
+                } else {
+                    console.log('Permiso para DeviceMotionEvent denegado.');
+                }
+            })
+            .catch(console.error);
+    } else {
+        activarDeteccionMovimiento(socket);
+    }
+  } else {
+    console.log('DeviceMotionEvent no está soportado.');
+  }
 });
    
 

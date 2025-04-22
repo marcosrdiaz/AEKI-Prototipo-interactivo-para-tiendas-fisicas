@@ -33,6 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
             <p><strong>Descripción:</strong> ${producto.descripcion}</p>
             <p><strong>Color:</strong> ${producto.color}</p>
             <p><strong>Precio:</strong> $${producto.precio.toFixed(2)}</p>
+            <p><strong>Cantidad:</strong> ${producto.cantidad}</p>
             <button class="eliminar-producto" data-id="${producto.id}">Eliminar</button>
           </div>
         `;
@@ -54,6 +55,13 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log("Cambio de página", pagina);
     window.location.href = pagina;
   });
+
+  socket.on("gesto-navegacion-server", (direccion) => {
+    if (direccion === "agitar") {
+          console.log("Gesto agitar");
+          socket.emit("carrito-vaciar");
+          
+      }});
 
   // Emitir evento para vaciar el carrito
   document.getElementById("vaciar-carrito").addEventListener("click", () => {

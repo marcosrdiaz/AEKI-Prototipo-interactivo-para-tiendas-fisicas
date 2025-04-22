@@ -3,6 +3,13 @@ body {
     margin: 20px;
 }
 
+h1 {
+    font-size: 35px;
+    color: #56270C;
+    text-align: center;
+    margin-top: 20px;
+}
+
 .producto {
     display: flex; /* Usar flexbox para organizar los elementos en línea */
     align-items: flex-start; /* Alinear los elementos al inicio verticalmente */
@@ -57,3 +64,78 @@ body {
     background-color: #f0f8ff; /* Fondo claro para resaltar */
 }
 
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+  
+  .modal {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+  }
+
+
+  .instrucciones {
+    position: fixed;
+    top: 3%;
+    right: 10px;
+    background: #e74c3c;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    z-index: 1100;
+    font-size: 14px;
+  }
+  
+  /* Modal para mostrar gestos disponibles */
+  .modal-gestos-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1200;
+  }
+  
+  .modal-gestos {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: left;
+    max-width: 300px;
+  }
+
+  .back-button {
+    position: absolute; /* Posiciona el botón de forma absoluta */
+    top: 10px; /* Espaciado desde la parte superior */
+    left: 10px; /* Espaciado desde la parte izquierda */
+    background-color: #D67942; /* Color de fondo */
+    color: #FFFFFF; /* Color del texto */
+    padding: 8px 12px; /* Espaciado interno */
+    border: none; /* Sin bordes */
+    border-radius: 5px; /* Bordes redondeados */
+    text-decoration: none; /* Elimina el subrayado */
+    font-size: 14px; /* Tamaño de la fuente */
+    cursor: pointer; /* Cambia el cursor al pasar por encima */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra para destacar */
+    transition: background-color 0.3s ease; /* Transición suave al pasar el cursor */
+  }
+  
+  .back-button:hover {
+    background-color: #b85d36; /* Color de fondo al pasar el cursor */
+  }
