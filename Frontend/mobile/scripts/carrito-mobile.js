@@ -3,12 +3,16 @@ import { activarDeteccionMovimiento } from './gestos.js'; // Importar la funció
 document.addEventListener("DOMContentLoaded", () => {
   const socket = io();
   const botonatras = document.getElementById("boton-atras");
-  // Identificar dispositivo como "web"
-  socket.emit("identificar", "web");
 
+
+  socket.emit("identificar", "mobile");
   socket.on("tipo-confirmado", (tipo) => {
     console.log("Tipo de dispositivo confirmado:", tipo);
   });
+
+  socket.emit("solicitar-estado"); 
+  socket.on("entrada-server", (data) => {
+    modeLabel.textContent = data;  });
 
   // Cargar productos del carrito desde el servidor
   socket.on("carrito-actualizado", (carrito) => {

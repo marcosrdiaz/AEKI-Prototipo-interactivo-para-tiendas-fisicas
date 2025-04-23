@@ -134,6 +134,9 @@ io.on("connection", (socket) => {
     socket.emit("carrito-actualizado", carritoCompartido);
   });
 
+  socket.on("solicitar-estado", () => {
+    socket.emit("entrada-server", metodo_entrada);}); // Enviar estado inicial al cliente web)
+
   socket.on("entrada", (data) => {
     metodo_entrada = data;
     console.log("Datos recibidos:", metodo_entrada);

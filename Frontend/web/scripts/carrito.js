@@ -9,6 +9,10 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log("Tipo de dispositivo confirmado:", tipo);
   });
 
+  socket.emit("solicitar-estado"); 
+  socket.on("entrada-server", (data) => {
+    modeLabel.textContent = data;  });
+
   botonatras.addEventListener("click", () => {
     window.location.href = 'index.html'; // Redirigir a la página de inicio
     socket.emit('cambio-pagina', 'index.html'); // Enviar evento al servidor

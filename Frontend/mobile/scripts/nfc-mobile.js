@@ -9,6 +9,15 @@ document.addEventListener('DOMContentLoaded', () => {
         socket.emit('cambio-pagina', 'index.html'); // Enviar evento al servidor
       });
 
+  socket.emit("identificar", "mobile");
+  socket.on("tipo-confirmado", (tipo) => {
+    console.log("Tipo de dispositivo confirmado:", tipo);
+  });
+
+  socket.emit("solicitar-estado"); 
+  socket.on("entrada-server", (data) => {
+    modeLabel.textContent = data;  });
+
       socket.on("cambio-pagina-server", (pagina) => {
         window.location.href = pagina;});
 
