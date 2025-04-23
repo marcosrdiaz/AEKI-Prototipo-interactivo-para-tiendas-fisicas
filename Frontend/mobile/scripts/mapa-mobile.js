@@ -19,8 +19,6 @@ document.addEventListener("DOMContentLoaded", () => {
   socket.on("cambio-pagina-server", (pagina) => {
     window.location.href = pagina;});
 
-
-
   let productos = {}; // Objeto para almacenar los productos y sus coordenadas
   // Cargar datos del catálogo desde el servidor
   fetch("http://localhost:4000/api/almacen")
@@ -79,9 +77,6 @@ document.addEventListener("DOMContentLoaded", () => {
             productoNombre.textContent = producto.nombre;
             productoDescripcion.textContent = productoData.descripcion || "Sin descripción disponible.";
 
-            // Emitir evento al servidor para sincronizar con la web
-            socket.emit("mostrar-ruta", { nombre: producto.nombre, destino });
-
             // Mostrar la ruta en el mapa móvil
             mostrarRuta(producto.nombre, destino);
           });
@@ -109,7 +104,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Ajustar la vista inicial del mapa cuando esté listo
   mapa.whenReady(() => {
-    mapa.setView([2, 5], 5.2); // Posicionar correctamente el mapa
+    mapa.setView([3, 5], 5.2); // Posicionar correctamente el mapa
   });
 
   // Ajustar los límites del mapa
@@ -119,16 +114,19 @@ document.addEventListener("DOMContentLoaded", () => {
   const inicio = [0.8, 7]; // Punto de entrada fijo
   let marcadorRuta, lineaRuta;
 
-  // Función para mostrar la ruta en el mapa
-  function mostrarRuta(nombre, destino) {
-    if (marcadorRuta) mapa.removeLayer(marcadorRuta);
-    if (lineaRuta) mapa.removeLayer(lineaRuta);
+  // Función para mostrar la ruta en el mapa móvil
+function mostrarRuta(nombre, destino) {
+  if (marcadorRuta) mapa.removeLayer(marcadorRuta);
+  if (lineaRuta) mapa.removeLayer(lineaRuta);
 
-    const ruta = calcularRuta(inicio, destino);
+  const ruta = calcularRuta(inicio, destino);
 
-    marcadorRuta = L.marker(destino).addTo(mapa).bindPopup(nombre).openPopup();
-    lineaRuta = L.polyline(ruta, { color: "blue" }).addTo(mapa);
-  }
+  marcadorRuta = L.marker(destino).addTo(mapa).bindPopup(nombre).openPopup();
+  lineaRuta = L.polyline(ruta, { color: "blue" }).addTo(mapa);
+
+  // Emitir evento al servidor para sincronizar con la web
+  socket.emit("mostrar-ruta", { nombre, destino });
+}
 
   // Función para calcular la ruta más corta usando A*
   function calcularRuta(inicio, destino) {

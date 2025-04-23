@@ -191,4 +191,17 @@ socket.on("tipo-confirmado", (tipo) => {
     }
     return ruta;
   }
+
+// Escuchar eventos del servidor para mostrar rutas desde el móvil
+socket.on("mostrar-ruta", ({ nombre, destino }) => {
+  if (marcadorRuta) mapa.removeLayer(marcadorRuta);
+  if (lineaRuta) mapa.removeLayer(lineaRuta);
+
+  const ruta = calcularRuta(inicio, destino);
+
+  marcadorRuta = L.marker(destino).addTo(mapa).bindPopup(nombre).openPopup();
+  lineaRuta = L.polyline(ruta, { color: "blue" }).addTo(mapa);
+});
+
+
 });
