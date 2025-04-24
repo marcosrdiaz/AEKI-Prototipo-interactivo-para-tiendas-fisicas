@@ -1,4 +1,5 @@
 import {activarDeteccionMovimiento} from './gestos.js'; // Importar la función de gestos
+import {initVoiceRecognition} from './voz.js'; // Importar la función de voz
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -32,9 +33,10 @@ function actualizarEstado(data){
         infoVoice.style.display = 'block'; // Mostrar el texto de información
 
     } else {
+      
         voiceButton.style.display = 'none'; // Ocultar el botón
         infoVoice.style.display = 'none'; // Ocultar el texto de información
-    }
+    }};
     // Asegurar que el contenedor mantenga su alineación
     const container = document.querySelector('.container');
     container.style.display = 'flex';
@@ -44,64 +46,54 @@ function actualizarEstado(data){
 
 //==================== VOZ ===========================================
 
-    const startRecognitionButton = document.querySelector("#start-recognition");
     // Verifica si el navegador soporta SpeechRecognition
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
     
     if (!SpeechRecognition) {
         infoVoice.textContent = 'Tu navegador no soporta la API de Reconocimiento de Voz.';
     } else {
-        const recognition = new SpeechRecognition();
-        recognition.lang = 'es-ES';
-    
-        voiceButton.addEventListener('click', () => {
-            // Cambiar el texto y el color del botón
-            const buttonText = voiceButton.querySelector('span');
-            buttonText.textContent = 'Escuchando...';
-            voiceButton.style.backgroundColor = '#D67942'; // Cambiar a un color diferente mientras escucha
-        
-            // Mostrar el mensaje de información más abajo
-            infoVoice.textContent = 'Reconocimiento de voz activado. Di "Mapa", "Carrito" o "Comprar Producto".';
-            infoVoice.style.marginTop = '1rem'; // Añadir espacio entre el botón y el texto
-            console.log('Escuchando...');
-            recognition.start();
-        
-            // Restaurar el texto, el color y la imagen del botón cuando termine de escuchar
-            recognition.onend = () => {
-                buttonText.textContent = 'Iniciar Reconocimiento de Voz';
-                voiceButton.style.backgroundColor = '#90BFEE'; // Restaurar el color original
-            };
-        });
-    
-        recognition.onresult = (event) => {
-            if (event.results && event.results[0] && event.results[0][0]) {
-                const transcript = event.results[0][0].transcript.toLowerCase();
-                if (transcript.includes('carrito') || transcript.includes('carro')) {
-                    window.location.href = 'carrito-mobile.html';
-                    socket.emit("cambio-pagina", 'carrito.html'); // Enviar evento al servidor
-                } 
-                else if (transcript.includes('mapa')) {
-                    window.location.href = 'mapa-mobile.html';
-                    socket.emit("cambio-pagina", 'mapa.html'); // Enviar evento al servidor 
-                }
-                else if (transcript.includes('producto') || transcript.includes('n-f-c')) {
-                    window.location.href = 'nfc-mobile.html';
-                    socket.emit("cambio-pagina", 'nfc.html'); // Enviar evento al servidor
-                }
-                else if (transcript.includes('catálogo')) {
-                    window.location.href = 'catalogo-mobile.html';
-                    socket.emit("cambio-pagina", 'catalogo.html'); // Enviar evento al servidor
-                }
+        const recognition = initVoiceRecognition({
+            lang: 'es-ES',
+            continuous: false,
+            interimResults: false,
+            onStart: () => {
+              voiceButton.querySelector('span').textContent = 'Escuchando...';
+              voiceButton.style.backgroundColor = '#D67942';
+              infoVoice.textContent = 'Reconocimiento de voz activado.';
+            },
+            onResult: (transcript) => {
+              if (transcript.includes('carrito') || transcript.includes('carro')) {
+                window.location.href = 'carrito-mobile.html';
+                socket.emit("cambio-pagina", 'carrito.html');
+              } else if (transcript.includes('mapa')) {
+                window.location.href = 'mapa-mobile.html';
+                socket.emit("cambio-pagina", 'mapa.html');
+              } else if (transcript.includes('producto') || transcript.includes('n-f-c') || transcript.includes('escaner')) {
+                window.location.href = 'nfc-mobile.html';
+                socket.emit("cambio-pagina", 'nfc.html');
+              } else if (transcript.includes('catálogo')) { 
                 
-            } else {
-                infoVoice.textContent = 'No se detectó ninguna voz. Por favor, intenta de nuevo.';
+                window.location.href = 'catalogo-mobile.html';
+                socket.emit("cambio-pagina", 'catalogo.html');
+              }
+              else if (transcript.includes('gestos')) { 
+              actualizarEstado('GESTOS');
+              socket.emit("entrada", "GESTOS");
+              }
+            },
+            onError: (event) => {
+              infoVoice.textContent = `Error en el reconocimiento: ${event.error}`;
+            },
+            onEnd: () => {
+              voiceButton.querySelector('span').textContent = 'Iniciar Reconocimiento de Voz';
+              voiceButton.style.backgroundColor = '#90BFEE';
             }
-        };
-    
-        recognition.onerror = (event) => {
-            infoVoice.textContent = `Error en el reconocimiento de voz: ${event.error}`;
-        };}
-
+          });
+        
+          voiceButton.addEventListener('click', () => {
+            infoVoice.style.marginTop = '1rem';
+            recognition.startRecognition();
+          });
 }
 
 //======================= GESTOS ================================================
@@ -125,6 +117,5 @@ if (typeof DeviceMotionEvent !== 'undefined') {
 } else {
     console.log('DeviceMotionEvent no está soportado.');
 }
-
 
 });

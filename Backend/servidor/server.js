@@ -78,46 +78,6 @@ app.get('/productos/:id', (req, res) => {
   res.status(200).send(producto);
 });
 
-app.post('/productos', (req, res) => {
-  const newProducto = req.body;
-
-  // Verificar que todos los atributos necesarios están presentes
-  if (!newProducto.id || !newProducto.nombre 
-    || !newProducto.descripcion || !newProducto.color || !newProducto.precio
-    || !newProducto.unidades_en_stock || !newProducto.localizacion_en_almacen) {
-      return res.status(400).send({ error: 'Faltan atributos requeridos en el producto.' });
-  }
-
-  // Verificar que no existan atributos no permitidos
-  const allowedKeys = ['id', 'nombre', 'descripcion', 'color', 'precio', 'unidades_en_stock', 'localizacion_en_almacen'];
-  const invalidKeys = Object.keys(newProducto).filter(key => !allowedKeys.includes(key));
-  if (invalidKeys.length > 0) {
-      return res.status(400).send({ error: `Atributos no permitidos: ${invalidKeys.join(', ')}` });
-  }
-
-  // Verificar que el id no exista ya
-  const idExists = productos.some(producto => producto.id === newProducto.id);
-  if (idExists) {
-      return res.status(409).send({ error: 'El id del producto ya existe.' });
-  }
-
-  productos.push(newProducto);
-  saveProductos(res);
-  res.status(201).send(newProducto);
-});
-
-
-app.delete("/productos/:id", (req, res) => {
-  const id = parseInt(req.params.id);
-  const index = productos.findIndex(producto => producto.id === id);
-  if (index < 0) {
-    return res.status(404).send({ error: 'Producto no encontrado' });
-  }
-  productos.splice(index, 1);
-  saveProductos(res);
-  res.status(204).send();
-});
-
 
 // WebSocket Socket.IO
 io.on("connection", (socket) => {

@@ -88,7 +88,7 @@
   }
 
   .clear-cart {
-    background-color: #e74c3c;
+    background-color: #D67942;
     color: #FFFFFF;
     border: none;
     padding: 0.5rem 1rem;
@@ -104,7 +104,7 @@
   }
 
   .eliminar-producto {
-    background-color: #e74c3c;
+    background-color: #D67942;
     color: white;
     border: none;
     padding: 10px;
@@ -113,20 +113,15 @@
     margin-top: 10px;
   }
   
-  .eliminar-producto:hover {
-    background-color: #c0392b;
-  }
-
   .mode-indicator {
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
+    position: absolute;
+    top: 10px; /* Alineado con el botón de atrás */
+    right: 10px; /* Espaciado desde la parte derecha */
     text-align: center;
     font-size: 1rem;
     color: #333;
     background-color: #f0f0f0;
-    padding: 10px 20px;
+    padding: 8px 12px;
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   }

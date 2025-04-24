@@ -1,3 +1,7 @@
+
+import {initVoiceRecognition} from './voz.js'; // Importar la función de voz
+
+
 document.addEventListener("DOMContentLoaded", () => {
   const socket = io();
   const botonatras = document.getElementById("boton-atras");
@@ -205,4 +209,35 @@ function mostrarRuta(nombre, destino) {
   socket.on("mostrar-ruta", ({ nombre, destino }) => {
     mostrarRuta(nombre, destino);
   });
+
+// Verifica si el navegador soporta SpeechRecognition
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+if (!SpeechRecognition) {
+   alert('Tu navegador no soporta la API de Reconocimiento de Voz.');
+} else {
+    const recognition = initVoiceRecognition({
+        lang: 'es-ES',
+        continuous: false,
+        interimResults: false,
+        onResult: (transcript) => {
+          if (transcript.includes('atrás') || transcript.includes('carro')) {
+            window.location.href = 'index.html';
+            socket.emit("cambio-pagina", 'index.html');
+          }
+        },
+        onError: (event) => {
+          alert(`Error en el reconocimiento: ${event.error}`);
+        },
+        onEnd: () => {
+          recognition.startRecognition(); // Reiniciar el reconocimiento al finalizar
+        }
+
+      });
+    
+      window.addEventListener('load', () => {
+        recognition.startRecognition();
+      });
+}
+
 });
