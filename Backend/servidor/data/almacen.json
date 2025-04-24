@@ -4,7 +4,7 @@
         "id": "a3f8b2e1",
         "nombre": "Silla de oficina ergonómica",
         "descripcion": "Silla ajustable con soporte lumbar, reposabrazos y reposapies extensible.",
-        "color": "negro",
+        "color": "Negro",
         "precio": 199.99,
         "localizacion_en_almacen": [5,5],
         "imagen": "http://localhost:4000/images/silla.png"
@@ -13,7 +13,7 @@
         "id": "4c7d9e0f",
         "nombre": "Mesa de comedor extensible",
         "descripcion": "Mesa de madera de roble con capacidad para 6-8 personas.",
-        "color": "marrón claro",
+        "color": "Marrón claro",
         "precio": 450.00,
         "localizacion_en_almacen": [7,8],
         "imagen": "http://localhost:4000/images/mesa.png"
@@ -22,7 +22,7 @@
         "id": "e29b6d4a",
         "nombre": "Sofá seccional de tela",
         "descripcion": "Sofá modular gris formato chaiselongue de 3 piezas con cojines extraíbles.",
-        "color": "azul oscuro",
+        "color": "Azul oscuro",
         "precio": 899.50,
         "localizacion_en_almacen": [4,9],
         "imagen": "http://localhost:4000/images/sofa.png"
@@ -31,7 +31,7 @@
         "id": "8f1e5c3d",
         "nombre": "Estantería modular",
         "descripcion": "Estantería de 4 niveles con diseño moderno en distintos tonos de gris.",
-        "color": "blanco",
+        "color": "Blanco",
         "precio": 120.75,
         "localizacion_en_almacen": [9,6],
         "imagen": "http://localhost:4000/images/estanteria.png"
@@ -40,7 +40,7 @@
         "id": "6b9a2d7e",
         "nombre": "Cama king size con cabecero",
         "descripcion": "Estructura de cama blanca con cabecero acolchado una estructura de cama moderna.",
-        "color": "gris",
+        "color": "Gris",
         "precio": 650.00,
         "localizacion_en_almacen": [3.4,6.5],
         "imagen": "http://localhost:4000/images/cama.png"

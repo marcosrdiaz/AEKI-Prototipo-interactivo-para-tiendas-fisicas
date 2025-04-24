@@ -19,7 +19,7 @@ socket.on("tipo-confirmado", (tipo) => {
   socket.on("entrada-server", (data) => {
   modeLabel.textContent = data;
   const instrucciones = document.getElementById("instrucciones");
-  if (data === "gestos") {
+  if (data === "GESTOS") {
     instrucciones.style.display = "block"; // Mostrar el elemento
   } else {
     instrucciones.style.display = "none"; // Ocultar el elemento
