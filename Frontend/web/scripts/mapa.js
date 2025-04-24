@@ -107,7 +107,7 @@ socket.on("tipo-confirmado", (tipo) => {
 
           // Mostrar marcador y ruta en el mapa
           marcadorRuta = L.marker(destino).addTo(mapa).bindPopup(productoNombre).openPopup();
-          lineaRuta = L.polyline(ruta, { color: "blue" }).addTo(mapa);
+          lineaRuta = L.polyline(ruta, { color: "brown" }).addTo(mapa);
         });
       });
     }
@@ -209,7 +209,7 @@ socket.on("mostrar-ruta", ({ nombre, destino }) => {
   const ruta = calcularRuta(inicio, destino);
 
   marcadorRuta = L.marker(destino).addTo(mapa).bindPopup(nombre).openPopup();
-  lineaRuta = L.polyline(ruta, { color: "blue" }).addTo(mapa);
+  lineaRuta = L.polyline(ruta, { color: "brown" }).addTo(mapa);
 });
 
 

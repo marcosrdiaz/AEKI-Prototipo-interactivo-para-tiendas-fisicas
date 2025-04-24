@@ -146,7 +146,7 @@ function mostrarRuta(nombre, destino) {
   const ruta = calcularRuta(inicio, destino);
 
   marcadorRuta = L.marker(destino).addTo(mapa).bindPopup(nombre).openPopup();
-  lineaRuta = L.polyline(ruta, { color: "blue" }).addTo(mapa);
+  lineaRuta = L.polyline(ruta, { color: "brown" }).addTo(mapa);
 
   // Emitir evento al servidor para sincronizar con la web
   socket.emit("mostrar-ruta", { nombre, destino });
