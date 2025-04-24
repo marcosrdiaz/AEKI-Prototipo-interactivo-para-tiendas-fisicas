@@ -2,15 +2,17 @@ body {
   font-family: sans-serif;
   background: #f0f0f0;
   margin: 0;
-  padding: 2rem;
+  padding: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center; /* Centrar verticalmente */
   height: 100vh; /* Asegurar que ocupe toda la altura de la ventana */
+  overflow: hidden; /* Evitar el scroll */
 }
 
 h1 {
+  margin-top: -20px; /* Reduce el margen superior para mover el título hacia arriba */
   margin-bottom: 2rem;
   font-size: 4rem; /* Tamaño grande como en móvil */
   font-weight: bold;

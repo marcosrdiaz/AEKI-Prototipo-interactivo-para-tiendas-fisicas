@@ -1,4 +1,5 @@
 body {
+    font-family: Arial, sans-serif;
     display: flex;
     flex-direction: column; /* Asegura que el título esté arriba */
     height: 100vh;
@@ -38,6 +39,7 @@ body {
 }
 
 h1 {
+    
   font-size: 35px;
   color: #56270C;
   text-align: center;
