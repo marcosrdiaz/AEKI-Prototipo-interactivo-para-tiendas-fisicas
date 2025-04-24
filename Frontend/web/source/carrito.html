@@ -10,7 +10,7 @@
 <body>
   <div class="header">
     <!-- Instrucciones de navegación en la esquina superior izquierda -->
-    <div id="instrucciones" class="instrucciones">
+    <div class="instrucciones">
       Agita para vaciar tu carrito
     </div>
     <a id="boton-atras" class="back-button">←</a>
@@ -20,6 +20,9 @@
     <p>Cargando productos del carrito...</p>
   </div>
   <button id="vaciar-carrito" class="clear-cart">Vaciar Carrito</button>
+  <div class="mode-indicator">
+    Modo de entrada activo: <span id="modeLabel">GESTOS</span>
+  </div>
   <script src="../scripts/carrito.js"></script>
 </body>
 </html>

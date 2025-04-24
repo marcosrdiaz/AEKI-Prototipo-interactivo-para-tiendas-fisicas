@@ -4,6 +4,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 const socket = io();
 const botonatras = document.getElementById("boton-atras");
+const modeLabel = document.getElementById('modeLabel');
+
 
 socket.emit("identificar", "mobile");
 socket.on("tipo-confirmado", (tipo) => {

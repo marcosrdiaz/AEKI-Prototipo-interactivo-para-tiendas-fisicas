@@ -4,6 +4,8 @@ document.addEventListener("DOMContentLoaded", () => {
   // Identificar dispositivo como "web"
   socket.emit("identificar", "web");
   const botonatras = document.getElementById("boton-atras");
+  const modeLabel = document.getElementById('modeLabel');
+
 
   socket.on("tipo-confirmado", (tipo) => {
     console.log("Tipo de dispositivo confirmado:", tipo);

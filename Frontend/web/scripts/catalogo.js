@@ -2,6 +2,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 const socket = io();
 const botonatras = document.getElementById("boton-atras");
+const modeLabel = document.getElementById('modeLabel');
+
 let productosLista = []; // Array para almacenar los productos
 let seleccionado = 0; // Variable para el índice del producto seleccionado
 let gestosNav = true; // Variable para saber si se debe ejecutar el gesto de navegación

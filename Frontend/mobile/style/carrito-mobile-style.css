@@ -23,7 +23,7 @@
     width: 100%;
     text-align: center;
     position: relative;
-    margin-bottom: 20px;
+    margin: 40px 0 20px 0; /* Ajustado para evitar solapamiento */
     border-bottom: 1px solid #e1e1e1;
     border-radius: 0.5rem; /* Bordes redondeados */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5); /* Sombra suave */
@@ -95,12 +95,12 @@
     border-radius: 0.5rem;
     font-size: 1rem;
     cursor: pointer;
-    width: 100%;
     position: fixed;
-    bottom: 0;
-    left: 0;
+    bottom: 20px; /* Ajustado para separarlo del borde inferior */
+    right: 20px; /* Posicionado en la esquina inferior derecha */
     text-align: center;
     font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Sombra para destacar */
   }
 
   .eliminar-producto {
@@ -115,4 +115,18 @@
   
   .eliminar-producto:hover {
     background-color: #c0392b;
+  }
+
+  .mode-indicator {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    font-size: 1rem;
+    color: #333;
+    background-color: #f0f0f0;
+    padding: 10px 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   }

@@ -3,26 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../style/nfc-style.css">
   <script src="/socket.io/socket.io.js"></script>
   <title>Comprar Producto</title>
-  <style>
-    body {
-      font-family: sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-      background-color: #f5f5f5;
-    }
-    h1 {
-      color: #333;
-    }
-  </style>
 </head>
 <body>
-  <a id="boton-atras" class="back-button">←</a>
-  <h1>Página de Comprar Producto</h1>
+  <div class="header">
+    <a id="boton-atras" class="back-button">←</a>
+    <h1>Página de Comprar Producto</h1>
+  </div>
+  <div class="content">
+    <div class="loading-circle"></div>
+    <p>Esperando al escaneo de un producto...</p>
+  </div>
+  <div class="mode-indicator">
+    Modo de entrada activo: <span id="modeLabel">GESTOS</span>
+  </div>
   <script src="../scripts/nfc.js"></script>
 </body>
 </html>

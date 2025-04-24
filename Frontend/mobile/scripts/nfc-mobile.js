@@ -3,6 +3,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const messageContainer = document.getElementById('messageContainer');
     const socket = io();
     const botonatras = document.getElementById("boton-atras");
+    const modeLabel = document.getElementById('modeLabel');
+
 
     botonatras.addEventListener("click", () => {
         window.location.href = 'index.html'; // Redirigir a la página de inicio

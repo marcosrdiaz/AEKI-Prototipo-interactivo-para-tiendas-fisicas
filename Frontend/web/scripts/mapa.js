@@ -1,6 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
   const socket = io();
   const botonatras = document.getElementById("boton-atras");
+  const modeLabel = document.getElementById('modeLabel');
+
   // Identificar dispositivo como "web"
 socket.emit("identificar", "web");
 

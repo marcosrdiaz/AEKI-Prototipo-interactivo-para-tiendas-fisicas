@@ -29,17 +29,23 @@ body {
 
   .clear-cart {
     position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    padding: 15px;
+    bottom: 20px; /* Ajusta la distancia desde el borde inferior */
+    right: 20px; /* Ajusta la distancia desde el borde derecho */
+    padding: 10px 20px; /* Ajusta el tamaño del botón */
     background: #e74c3c;
     color: white;
     text-align: center;
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: bold;
     border: none;
+    border-radius: 5px;
     cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease;
+  }
+
+  .clear-cart:hover {
+    background-color: #c0392b;
   }
 
   .eliminar-producto {
@@ -87,11 +93,11 @@ body {
   background: #e74c3c;
   color: white;
   padding: 8px 12px;
-  border-radius: 4px 0 0 4px;
-  cursor: pointer;
+  border-radius: 4px; /* Redondea todas las esquinas */
   z-index: 1100;
   font-size: 14px;
   text-align: center;
+  pointer-events: none; /* Desactiva la interacción del usuario */
 }
 
 /* Ajustamos el botón de atrás para que no se solape con el header */
@@ -113,4 +119,18 @@ body {
 
 .back-button:hover {
   background-color: #b85d36;
+}
+
+.mode-indicator {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  font-size: 1rem;
+  color: #333;
+  background-color: #f0f0f0;
+  padding: 10px 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
