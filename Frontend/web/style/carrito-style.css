@@ -4,8 +4,10 @@ body {
     background-color: #f5f5f5;
   }
   h1 {
-    margin-top: 58px;
-    color: #333;
+    font-size: 35px;
+    color: #56270C;
+    text-align: center;
+    margin-top: 20px;
   }
   .producto {
     display: flex; /* Usar flexbox para organizar los elementos en línea */
@@ -32,8 +34,8 @@ body {
     bottom: 20px; /* Ajusta la distancia desde el borde inferior */
     right: 20px; /* Ajusta la distancia desde el borde derecho */
     padding: 10px 20px; /* Ajusta el tamaño del botón */
-    background: #e74c3c;
-    color: white;
+    background: #D67942;
+    color: rgb(255, 255, 255);
     text-align: center;
     font-size: 1rem;
     font-weight: bold;
@@ -45,13 +47,13 @@ body {
   }
 
   .clear-cart:hover {
-    background-color: #c0392b;
+    background-color: #D67942;
   }
 
   .eliminar-producto {
     align-self: flex-start; /* Alinear el botón al inicio */
     padding: 10px 20px;
-    background-color: #e74c3c;
+    background-color: #D67942;
     color: white;
     border: none;
     border-radius: 5px;
@@ -60,7 +62,7 @@ body {
   }
   
   .eliminar-producto:hover {
-    background-color: #c0392b;
+    background-color: #7a4500;
   }
 
   .producto-imagen {
@@ -88,9 +90,9 @@ body {
   /* Para mostrar el mensaje de instrucciones en la esquina superior derecha, centrado verticalmente */
 .instrucciones {
   position: fixed;
-  top: 10%;
+  top: 3%;
   right: 10px;
-  background: #e74c3c;
+  background: #D67942;
   color: white;
   padding: 8px 12px;
   border-radius: 4px; /* Redondea todas las esquinas */

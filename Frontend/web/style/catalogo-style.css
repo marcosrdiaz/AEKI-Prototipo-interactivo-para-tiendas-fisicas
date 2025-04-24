@@ -46,7 +46,7 @@ h1 {
 .add-to-cart {
     align-self: flex-start; /* Alinear el botón al inicio */
     padding: 5px 10px;
-    background-color: #e74c3c;
+    background-color: #D67942;
     color: #DFD9B9;
     border: none;
     border-radius: 3px;
@@ -56,11 +56,11 @@ h1 {
 
 .add-to-cart:hover {
   background-color: #DFD9B9;
-  color: #e74c3c;  
+  color: #D67942;  
 }
 
 .producto.resaltado {
-    border: 2px solid #e74c3c; /* Borde azul para el producto resaltado */
+    border: 2px solid #D67942; /* Borde azul para el producto resaltado */
     background-color: #f0f8ff; /* Fondo claro para resaltar */
 }
 
@@ -89,7 +89,7 @@ h1 {
     position: fixed;
     top: 3%;
     right: 10px;
-    background: #e74c3c;
+    background: #D67942;
     color: white;
     padding: 8px 12px;
     border-radius: 4px;

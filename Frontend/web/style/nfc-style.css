@@ -10,6 +10,8 @@ body {
 }
 
 .header {
+  display: flex;
+  text-align: center;
   position: absolute;
   top: 10px;
   left: 10px;
@@ -28,7 +30,7 @@ h1 {
   width: 50px;
   height: 50px;
   border: 5px solid #ccc;
-  border-top: 5px solid #007bff;
+  border-top: 5px solid #D67942;
   border-radius: 50%;
   animation: spin 1s linear infinite;
   margin: 20px auto;
@@ -60,4 +62,25 @@ p {
   padding: 10px 20px;
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Ajustamos el botón de atrás para que no se solape con el header */
+.back-button {
+  position: absolute;
+  top: 20px; /* Aumenta el top para separarlo del header */
+  left: 10px;
+  background-color: #D67942;
+  color: #FFFFFF;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  transition: background-color 0.3s ease;
+}
+
+.back-button:hover {
+  background-color: #b85d36;
 }
