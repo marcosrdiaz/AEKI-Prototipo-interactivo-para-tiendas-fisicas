@@ -152,14 +152,21 @@ io.on("connection", (socket) => {
     socket.broadcast.emit("gesto-navegacion-server", direccion);
   });
 
+   // En el servidor
+   socket.on("mostrar-ruta", ({ nombre, destino }) => {
+    socket.broadcast.emit("mostrar-ruta", { nombre, destino });
+  });
+
+  socket.on("producto-nfc", (producto) => {
+    console.log("Producto NFC recibido:", producto);
+    socket.broadcast.emit("producto-nfc", producto);
+  });
+
   socket.on("disconnect", () => {
     console.log("Cliente desconectado:", socket.id);
   });
 
-    // En el servidor
-  socket.on("mostrar-ruta", ({ nombre, destino }) => {
-    socket.broadcast.emit("mostrar-ruta", { nombre, destino });
-  });
+   
 
 });
 

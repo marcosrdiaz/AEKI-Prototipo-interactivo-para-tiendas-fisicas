@@ -27,4 +27,27 @@ socket.on("gesto-navegacion-server", (direccion) => {
         window.location.href = 'index.html'; // Redirigir a la página de inicio
         socket.emit('cambio-pagina', 'index.html'); // Enviar evento al servidor
         
-    }});
+    }
+});
+
+socket.on("producto-nfc", (producto) => {
+  console.log("Producto NFC recibido:", producto);
+  if (producto) {
+    // Crear el popup con la información del producto
+    const popup = document.createElement("div");
+    popup.className = "popup";
+
+    popup.innerHTML = `
+      <div class="popup-content">
+        <img src="${producto.imagen}" alt="${producto.nombre}" class="popup-img">
+        <h2>${producto.nombre}</h2>
+        <p><strong>Descripción:</strong> ${producto.descripcion}</p>
+        <p><strong>Color:</strong> ${producto.color}</p>
+        <p><strong>Precio:</strong> $${producto.precio.toFixed(2)}</p>
+      </div>
+    `;
+
+    document.body.appendChild(popup);
+
+  }
+});

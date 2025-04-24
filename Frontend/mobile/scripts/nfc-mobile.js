@@ -85,18 +85,26 @@ document.addEventListener('DOMContentLoaded', () => {
                                             <button id="popup-no">No</button>
                                         </div>
                                     `;
-
+                                    socket.emit("producto-nfc", producto);
                                     document.body.appendChild(popup);
+                                    
 
                                     // Asignar eventos a los botones del pop-up
                                     document.getElementById("popup-yes").addEventListener("click", () => {
                                         document.body.removeChild(popup);
                                         socket.emit("carrito-agregar", producto);
+                                        console.log("Producto agregado al carrito:", producto);
+                                        window.location.href = "index.html"; // Redirigir a la página de inicio
+                                        socket.emit("cambio-pagina", "index.html"); // Enviar evento al servidor
+                                        
                                         
                                     });
 
                                     document.getElementById("popup-no").addEventListener("click", () => {
-                                        document.body.removeChild(popup);
+                                        document.body.removeChild(popup)
+                                        socket.emit("cambio-pagina", "index.html"); // Enviar evento al servidor
+                                        window.href = 'index.html'; // Redirigir a la página de inicio
+
                                     });
                                 } else {
                                     messageContainer.textContent = `Producto no encontrado: ${productID}`;
