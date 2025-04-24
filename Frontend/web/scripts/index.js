@@ -58,8 +58,15 @@ const botones = document.querySelectorAll('.button');
         seleccionado = (seleccionado - 1 + botones.length) % botones.length;
       } else if (direccion === "arriba") {
         activarBoton(seleccionado);
+      } else if (direccion === "agitar") {
+        modeLabel.textContent = 'VOZ';
+        modeSwitch.checked = true;
+        enviarEstado();
       }
+
       resaltarBoton(seleccionado);
+      
+
     });
 
     // Inicial

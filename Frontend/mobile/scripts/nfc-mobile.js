@@ -1,4 +1,4 @@
-
+import {activarDeteccionMovimiento} from './gestos.js';
 import {initVoiceRecognition} from './voz.js'; // Importar la función de voz
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -20,11 +20,29 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   socket.emit("solicitar-estado"); 
-  socket.on("entrada-server", (data) => {
-    modeLabel.textContent = data;  });
+  
 
-      socket.on("cambio-pagina-server", (pagina) => {
-        window.location.href = pagina;});
+  socket.on("cambio-pagina-server", (pagina) => {
+  window.location.href = pagina;});
+
+  // Verificar si el dispositivo soporta DeviceMotionEvent
+  if (typeof DeviceMotionEvent !== 'undefined') {
+    if (typeof DeviceMotionEvent.requestPermission === 'function') {
+        DeviceMotionEvent.requestPermission()
+            .then(permissionState => {
+                if ((permissionState === 'granted') && (modeLabel.textContent === 'GESTOS')) {
+                    activarDeteccionMovimiento(socket);
+                } else {
+                    console.log('Permiso para DeviceMotionEvent denegado.');
+                }
+            })
+            .catch(console.error);
+    } else {
+        activarDeteccionMovimiento(socket);
+    }
+  } else {
+    console.log('DeviceMotionEvent no está soportado.');
+  }
 
     scanButton.addEventListener('click', async () => {
         if ("NDEFReader" in window) {
@@ -108,13 +126,10 @@ if (!SpeechRecognition) {
         continuous: false,
         interimResults: false,
         onResult: (transcript) => {
-          if (transcript.includes('atrás') || transcript.includes('carro')) {
+          if (transcript.includes('atrás')) {
             window.location.href = 'index.html';
             socket.emit("cambio-pagina", 'index.html');
           }
-        },
-        onError: (event) => {
-          alert(`Error en el reconocimiento: ${event.error}`);
         },
         onEnd: () => {
           recognition.startRecognition(); // Reiniciar el reconocimiento al finalizar
@@ -122,9 +137,18 @@ if (!SpeechRecognition) {
 
       });
     
-      window.addEventListener('load', () => {
-        recognition.startRecognition();
-      });
+        socket.once("entrada-server", (data) => {
+        modeLabel.textContent = data;  
+        if (modeLabel.textContent === "VOZ") {
+            console.log('Reconocimiento de voz activado');
+            recognition.startRecognition();
+             // Iniciar el reconocimiento al cargar la página
+        }
+        else {
+            console.log('Reconocimiento de voz desactivado');
+        }
+    });
+      
 }
 
 });

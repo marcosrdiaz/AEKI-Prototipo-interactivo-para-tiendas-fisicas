@@ -17,7 +17,14 @@ socket.emit("solicitar-estado");
 socket.on("entrada-server", (data) => {
   modeLabel.textContent = data;  });
 
-  socket.on ("cambio-pagina-server", (pagina) => {
-    console.log("cambio de pagina", pagina)
-    window.location.href = pagina;
-  });
+socket.on ("cambio-pagina-server", (pagina) => {
+  console.log("cambio de pagina", pagina)
+  window.location.href = pagina;
+});
+
+socket.on("gesto-navegacion-server", (direccion) => {
+  if (direccion === "izquierda") {
+        window.location.href = 'index.html'; // Redirigir a la página de inicio
+        socket.emit('cambio-pagina', 'index.html'); // Enviar evento al servidor
+        
+    }});

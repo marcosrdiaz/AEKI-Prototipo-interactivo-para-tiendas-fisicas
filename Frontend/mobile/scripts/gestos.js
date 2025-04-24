@@ -1,8 +1,10 @@
+
 export function activarDeteccionMovimiento(socket) {
     
+    const modeLabel = document.getElementById('modeLabel');
     let puedeDetectar = true; // Controlar el tiempo de espera entre detecciones
     window.addEventListener('devicemotion', (event) => {
-        if (!puedeDetectar) return;
+        if ((!puedeDetectar) || (modeLabel.textContent === 'VOZ')) return;
 
         const umbral = 15; // Umbral para detectar movimientos bruscos
         const { x, y, z } = event.acceleration;

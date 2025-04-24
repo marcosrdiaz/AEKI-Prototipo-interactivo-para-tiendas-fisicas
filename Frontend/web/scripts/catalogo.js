@@ -17,7 +17,14 @@ socket.on("tipo-confirmado", (tipo) => {
 
   socket.emit("solicitar-estado"); 
   socket.on("entrada-server", (data) => {
-    modeLabel.textContent = data;  });
+  modeLabel.textContent = data;
+  const instrucciones = document.getElementById("instrucciones");
+  if (data === "gestos") {
+    instrucciones.style.display = "block"; // Mostrar el elemento
+  } else {
+    instrucciones.style.display = "none"; // Ocultar el elemento
+  }
+});
 
 botonatras.addEventListener("click", () => {
   window.location.href = 'index.html'; // Redirigir a la página de inicio
@@ -175,6 +182,9 @@ socket.on("gesto-navegacion-server", (direccion) => {
         console.log("Gesto de dercha detectado");
         gestosNav = false;
         mostrarConfirmacion(productosLista[seleccionado]);
+    } else if (direccion === "izquierda") {
+        window.location.href = 'index.html'; // Redirigir a la página de inicio
+        socket.emit('cambio-pagina', 'index.html'); 
         
     }
 });

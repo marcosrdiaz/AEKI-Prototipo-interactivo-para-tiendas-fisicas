@@ -13,7 +13,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
   socket.emit("solicitar-estado"); 
   socket.on("entrada-server", (data) => {
-    modeLabel.textContent = data;  });
+    modeLabel.textContent = data;
+    const instructions = document.querySelector(".instrucciones");
+    if (modeLabel.textContent === "GESTOS") {
+      instructions.style.display = "block";
+      instructions.textContent = "Agita para vaciar tu carrito";
+    } else if (modeLabel.textContent === "VOZ") {
+      instructions.style.display = "block";
+      instructions.innerHTML = `
+      "Vaciar carrito": Para eliminar todos los productos
+    `;
+    } else {
+      instructions.style.display = "none";
+    }
+  });
 
   botonatras.addEventListener("click", () => {
     window.location.href = 'index.html'; // Redirigir a la página de inicio
@@ -66,6 +79,10 @@ document.addEventListener("DOMContentLoaded", () => {
     if (direccion === "agitar") {
           console.log("Gesto agitar");
           socket.emit("carrito-vaciar");
+    }
+    else if (direccion === "izquierda") {
+          window.location.href = 'index.html'; // Redirigir a la página de inicio
+          socket.emit('cambio-pagina', 'index.html'); // Enviar evento al servidor
           
       }});
 
@@ -74,6 +91,6 @@ document.addEventListener("DOMContentLoaded", () => {
     socket.emit("carrito-vaciar");
   });
 });
-  
+
 
 

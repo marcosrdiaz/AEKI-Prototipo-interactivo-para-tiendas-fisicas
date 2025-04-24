@@ -32,13 +32,12 @@ if (typeof DeviceMotionEvent !== 'undefined') {
           .then(permissionState => {
               if ((permissionState === 'granted') && (modeLabel.textContent === 'GESTOS')) {
                   activarDeteccionMovimiento(socket);
-                  console.log('DANZA KUDUROOOOOOOOOOOOOOOOOOOOOOOOOO');
               } else {
                   console.log('Permiso para DeviceMotionEvent denegado.');
               }
           })
           .catch(console.error);
-  } else {
+  } else if (modeLabel.textContent === 'GESTOS') {
       activarDeteccionMovimiento(socket);
   }
 } else {
@@ -55,13 +54,10 @@ if (!SpeechRecognition) {
         continuous: false,
         interimResults: false,
         onResult: (transcript) => {
-          if (transcript.includes('atrás') || transcript.includes('carro')) {
+          if (transcript.includes('atrás')) {
             window.location.href = 'index.html';
             socket.emit("cambio-pagina", 'index.html');
           }
-        },
-        onError: (event) => {
-          alert(`Error en el reconocimiento: ${event.error}`);
         },
         onEnd: () => {
           recognition.startRecognition(); // Reiniciar el reconocimiento al finalizar
@@ -69,9 +65,17 @@ if (!SpeechRecognition) {
 
       });
     
-      window.addEventListener('load', () => {
-        recognition.startRecognition();
-      });
+      socket.once("entrada-server", (data) => {
+        modeLabel.textContent = data;  
+        if (modeLabel.textContent === "VOZ") {
+            console.log('Reconocimiento de voz activado');
+            recognition.startRecognition();
+             // Iniciar el reconocimiento al cargar la página
+        }
+        else {
+            console.log('Reconocimiento de voz desactivado');
+        }
+    });
 }
 
 });

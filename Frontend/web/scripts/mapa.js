@@ -22,6 +22,13 @@ socket.on("tipo-confirmado", (tipo) => {
 
   socket.on("cambio-pagina-server", (pagina) => {
     window.location.href = pagina;});
+    
+    socket.on("gesto-navegacion-server", (direccion) => {
+      if (direccion === "izquierda") {
+            window.location.href = 'index.html'; // Redirigir a la página de inicio
+            socket.emit('cambio-pagina', 'index.html'); // Enviar evento al servidor
+            
+        }});
 
   let productos = {}; // Objeto para almacenar los productos y sus coordenadas
 

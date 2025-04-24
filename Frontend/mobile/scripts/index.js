@@ -33,7 +33,6 @@ function actualizarEstado(data){
         infoVoice.style.display = 'block'; // Mostrar el texto de información
 
     } else {
-      
         voiceButton.style.display = 'none'; // Ocultar el botón
         infoVoice.style.display = 'none'; // Ocultar el texto de información
     }};
@@ -59,7 +58,7 @@ function actualizarEstado(data){
             onStart: () => {
               voiceButton.querySelector('span').textContent = 'Escuchando...';
               voiceButton.style.backgroundColor = '#D67942';
-              infoVoice.textContent = 'Reconocimiento de voz activado.';
+              infoVoice.textContent = 'Indique a que página desea navegar, o si desea activar los gestos.';
             },
             onResult: (transcript) => {
               if (transcript.includes('carrito') || transcript.includes('carro')) {
@@ -68,7 +67,7 @@ function actualizarEstado(data){
               } else if (transcript.includes('mapa')) {
                 window.location.href = 'mapa-mobile.html';
                 socket.emit("cambio-pagina", 'mapa.html');
-              } else if (transcript.includes('producto') || transcript.includes('n-f-c') || transcript.includes('escaner')) {
+              } else if (transcript.includes('producto') || transcript.includes('n-f-c') || transcript.includes('escáner')) {
                 window.location.href = 'nfc-mobile.html';
                 socket.emit("cambio-pagina", 'nfc.html');
               } else if (transcript.includes('catálogo')) { 
@@ -99,23 +98,24 @@ function actualizarEstado(data){
 //======================= GESTOS ================================================
 
 // Verificar si el dispositivo soporta DeviceMotionEvent
+
+    
 if (typeof DeviceMotionEvent !== 'undefined') {
-    if (typeof DeviceMotionEvent.requestPermission === 'function') {
-        DeviceMotionEvent.requestPermission()
-            .then(permissionState => {
-                if ((permissionState === 'granted') && (modeLabel.textContent === 'GESTOS')) {
-                    activarDeteccionMovimiento(socket);
-                    console.log('DANZA KUDUROOOOOOOOOOOOOOOOOOOOOOOOOO');
-                } else {
-                    console.log('Permiso para DeviceMotionEvent denegado.');
-                }
-            })
-            .catch(console.error);
-    } else {
-        activarDeteccionMovimiento(socket);
-    }
+  if (typeof DeviceMotionEvent.requestPermission === 'function') {
+      DeviceMotionEvent.requestPermission()
+          .then(permissionState => {
+              if ((permissionState === 'granted') && (modeLabel.textContent === 'GESTOS')) {
+                  activarDeteccionMovimiento(socket);
+              } else {
+                  console.log('Permiso para DeviceMotionEvent denegado.');
+              }
+          })
+          .catch(console.error);
+  } else {
+      activarDeteccionMovimiento(socket);
+  }
 } else {
-    console.log('DeviceMotionEvent no está soportado.');
+  console.log('DeviceMotionEvent no está soportado.');
 }
 
 });
