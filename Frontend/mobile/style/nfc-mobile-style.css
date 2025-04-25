@@ -15,6 +15,7 @@ body {
   padding: 20px;
   max-width: 100%;
   overflow-x: hidden;
+  overflow: hidden;
 }
 .header {
   background-color: #D67942;

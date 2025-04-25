@@ -61,13 +61,14 @@ function actualizarEstado(data){
               infoVoice.textContent = 'Indique a que página desea navegar, o si desea activar los gestos.';
             },
             onResult: (transcript) => {
+              console.log('Transcripción:', transcript);
               if (transcript.includes('carrito') || transcript.includes('carro')) {
                 window.location.href = 'carrito-mobile.html';
                 socket.emit("cambio-pagina", 'carrito.html');
               } else if (transcript.includes('mapa')) {
                 window.location.href = 'mapa-mobile.html';
                 socket.emit("cambio-pagina", 'mapa.html');
-              } else if (transcript.includes('producto') || transcript.includes('n-f-c') || transcript.includes('escáner')) {
+              } else if (transcript.includes('producto') || transcript.includes('nfc') || transcript.includes('escáner')) {
                 window.location.href = 'nfc-mobile.html';
                 socket.emit("cambio-pagina", 'nfc.html');
               } else if (transcript.includes('catálogo')) { 

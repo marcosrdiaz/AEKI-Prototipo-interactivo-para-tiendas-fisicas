@@ -81,6 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                             <p><strong>Descripción:</strong> ${producto.descripcion}</p>
                                             <p><strong>Color:</strong> ${producto.color}</p>
                                             <p><strong>Precio:</strong> $${producto.precio.toFixed(2)}</p>
+                                            <p><strong>¿Quieres añadirlo al carrito?</strong></p>
                                             <button id="popup-yes">Sí</button>
                                             <button id="popup-no">No</button>
                                         </div>
