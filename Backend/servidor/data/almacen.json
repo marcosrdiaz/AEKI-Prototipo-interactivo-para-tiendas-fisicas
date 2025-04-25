@@ -2,10 +2,10 @@
     "almacen": [
       {
         "id": "a3f8b2e1",
-        "nombre": "Silla de oficina ergonómica",
-        "descripcion": "Silla ajustable con soporte lumbar, reposabrazos y reposapies extensible.",
-        "color": "Negro",
-        "precio": 199.99,
+        "nombre": "Silla gamer ergonómica",
+        "descripcion": "Silla gamer ajustable con soporte lumbar, reposabrazos y reposapies extensible.",
+        "color": "Negro y azul",
+        "precio": 99.99,
         "localizacion_en_almacen": [5,5],
         "imagen": "http://localhost:4000/images/silla.png"
       },

@@ -62,16 +62,16 @@ function actualizarEstado(data){
             },
             onResult: (transcript) => {
               console.log('Transcripción:', transcript);
-              if (transcript.includes('carrito') || transcript.includes('carro')) {
+              if (transcript.includes('carrito') || transcript.includes('carro') || transcript.includes('compras') || transcript.includes('mis productos')) {
                 window.location.href = 'carrito-mobile.html';
                 socket.emit("cambio-pagina", 'carrito.html');
-              } else if (transcript.includes('mapa')) {
+              } else if (transcript.includes('mapa') || transcript.includes('plano') || transcript.includes('ubicación') || transcript.includes('localizar')) {
                 window.location.href = 'mapa-mobile.html';
                 socket.emit("cambio-pagina", 'mapa.html');
-              } else if (transcript.includes('producto') || transcript.includes('nfc') || transcript.includes('escáner')) {
+              } else if (transcript.includes('escaneo') || transcript.includes('nfc') || transcript.includes('escáner') || transcript.includes('escanear') || transcript.includes('añadir')) {
                 window.location.href = 'nfc-mobile.html';
                 socket.emit("cambio-pagina", 'nfc.html');
-              } else if (transcript.includes('catálogo')) { 
+              } else if (transcript.includes('catálogo') ) { 
                 
                 window.location.href = 'catalogo-mobile.html';
                 socket.emit("cambio-pagina", 'catalogo.html');
