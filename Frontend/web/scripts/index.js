@@ -29,9 +29,9 @@ const botones = document.querySelectorAll('.button');
 
 
     function activarBoton(index) {
-      const accion = botones[index].textContent.toLowerCase() + ".html";
+      const accion = botones[index].textContent.toLowerCase().replace("catálogo", "catalogo") + ".html";
       window.location.href = accion;
-      let accionmobile = botones[index].textContent.toLowerCase() + "-mobile.html";
+      let accionmobile = botones[index].textContent.toLowerCase().replace("catálogo", "catalogo") + "-mobile.html";
       console.log("Navegando a:", accionmobile);
       socket.emit("cambio-pagina", accionmobile); // Enviar evento al servidor
 

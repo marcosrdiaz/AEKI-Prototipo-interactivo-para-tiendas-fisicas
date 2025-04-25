@@ -105,7 +105,7 @@ fetch("http://localhost:4000/productos")
       // Añadir evento al botón
       productoDiv.querySelector(".add-to-cart").addEventListener("click", () => {
         socket.emit("carrito-agregar", producto);
-        alert(`Producto "${producto.nombre}" añadido al carrito.`);
+        console.log(`Producto "${producto.nombre}" añadido al carrito.`);
       });
 
       resaltarProducto(seleccionado);
@@ -134,8 +134,8 @@ function mostrarConfirmacion(producto) {
   const modal = document.createElement("div");
   modal.className = "modal";
   modal.innerHTML = `
-    <p>¿Añadir "${producto.nombre}" al carrito?</p>
-    <p>Mueve el móvil a la derecha para CONFIRMAR o a la izquierda para CANCELAR.</p>
+    <p>¿Añadir ${producto.nombre} al carrito?</p>
+    <p><strong><-- CANCELAR            CONFIRMAR --></strong></p>
   `;
 
   overlay.appendChild(modal);
@@ -152,10 +152,10 @@ function mostrarConfirmacion(producto) {
     if (direccion === "derecha") {
       cerrarModal();
       gestosNav = true; // Volver a habilitar gestos de navegación
-      alert(`Producto "${producto.nombre}" añadido al carrito.`);
+      console.log(`Producto "${producto.nombre}" añadido al carrito.`);
       socket.emit("carrito-agregar", producto);
     } else if (direccion === "izquierda") {
-      alert("Acción cancelada.");
+      console.log("Acción cancelada.");
       cerrarModal();
       gestosNav = true; // Volver a habilitar gestos de navegación
     }

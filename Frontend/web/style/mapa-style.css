@@ -4,6 +4,7 @@ body {
     flex-direction: column; /* Asegura que el título esté arriba */
     height: 100vh;
     margin: 0;
+    overflow: hidden;
 }
 
 .header {

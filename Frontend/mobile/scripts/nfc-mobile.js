@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                     document.getElementById("popup-no").addEventListener("click", () => {
                                         document.body.removeChild(popup)
                                         socket.emit("cambio-pagina", "index.html"); // Enviar evento al servidor
-                                        window.href = 'index.html'; // Redirigir a la página de inicio
+                                        window.location.href = 'index.html'; // Redirigir a la página de inicio
 
                                     });
                                 } else {
