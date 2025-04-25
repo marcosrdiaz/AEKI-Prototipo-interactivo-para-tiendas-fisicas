@@ -10,7 +10,7 @@ export function activarDeteccionMovimiento(socket) {
         const { x, y, z } = event.acceleration;
 
         // Detectar si es un gesto de agitar
-        if (Math.abs(x) > (umbral-10) && Math.abs(y) > (umbral-10) && Math.abs(z) > (umbral-10)) {
+        if (Math.abs(x) > (umbral-5) && Math.abs(y) > (umbral-5) && Math.abs(z) > (umbral-5)) {
             console.log('Gesto de agitar detectado');
             socket.emit("gesto-navegacion", 'agitar');
             
