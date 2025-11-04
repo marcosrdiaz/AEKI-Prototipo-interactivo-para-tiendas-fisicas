@@ -1,11 +1,14 @@
 # Proyecto AEKI (Prototipo Interactivo)
 ***Breve descripción***
+
 Aplicación prototipo interactiva para mejorar la experiencia de compra en tienda física inspirada en IKEA, integrando control por voz, gestos y NFC para navegación y gestión de productos.
 
 ***Qué hace el proyecto***
+
 Permite a los usuarios consultar un catálogo de productos, gestionar un carrito de compras, añadir productos mediante NFC y visualizar la ubicación física de productos en un almacén con un mapa interactivo y rutas calculadas.
 
 ***Tecnologías usadas***
+
 - Backend: Node.js, Express, Socket.IO
 
 - Frontend: HTML, CSS, JavaScript
